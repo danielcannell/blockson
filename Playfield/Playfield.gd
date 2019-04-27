@@ -7,7 +7,10 @@ signal balance_changed
 signal tutorial_event
 
 onready var tilemap = find_node("TileMap")
-onready var wiretilemap = find_node("WireTileMap")
+onready var cabletray_tilemap = find_node("CableTrayTileMap")
+onready var wiredata_tilemap = find_node("WireDataTileMap")
+onready var wirepower_tilemap = find_node("WirePowerTileMap")
+onready var wire3phase_tilemap = find_node("Wire3PhaseTileMap")
 onready var background = find_node("Background")
 
 var balance = 0
@@ -27,9 +30,13 @@ func _ready():
     var ty = tilemap.get_cell_size().y
     var mapsize = Vector2(Config.MAP_WIDTH * tx, Config.MAP_HEIGHT * ty)
     background.set_size(mapsize)
-    background.set_position(-mapsize / 2)
-    tilemap.set_position(-mapsize / 2)
-    wiretilemap.set_position(-mapsize / 2)
+    var cpos = -mapsize / 2
+    background.set_position(cpos)
+    tilemap.set_position(cpos)
+    cabletray_tilemap.set_position(cpos)
+    wiredata_tilemap.set_position(cpos)
+    wirepower_tilemap.set_position(cpos)
+    wire3phase_tilemap.set_position(cpos)
     emit_signal("tutorial_event", Globals.TutorialEvents.PLAYFIELD_READY)
 
 
@@ -159,7 +166,6 @@ func finish_placing(coord):
                             wires.append(wire)
 
                         tiles[p].add_kind(placing)
-                        tilemap.set_cell(p.x, p.y, tiles[p].tile())
 
                 success = true
     else:
@@ -173,7 +179,6 @@ func finish_placing(coord):
                     var offset = Vector2(i, j)
                     var p = coord + offset
                     tiles[p] = placing
-                    tilemap.set_cell(p.x, p.y, placing.tile(offset))
 
             machines.append(placing)
             success = true

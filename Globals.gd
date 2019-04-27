@@ -21,6 +21,7 @@ const MACHINES = {
 const WIRES = {
     "Electric Cable": Wire.ELECTRIC,
     "Network Cable": Wire.NETWORK,
+    "Three phase": Wire.THREE_PHASE,
 }
 
 enum TutorialEvents {
@@ -29,6 +30,11 @@ enum TutorialEvents {
 }
 
 class Port:
+    var machine = null
     var heat = 0.0
-    var power = 0.0
-    var data = 0.0
+    var electric = 0.0
+    var network = 0.0
+    var three_phase = 0.0
+
+    func _init(m):
+        machine = m

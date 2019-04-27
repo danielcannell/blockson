@@ -9,5 +9,5 @@ func cost():
     return 5
 
 
-func tile(pos):
+func tile(pos, n, s, e, w):
     return pos.x + pos.y

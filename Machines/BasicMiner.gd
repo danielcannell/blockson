@@ -9,15 +9,14 @@ func cost():
     return 5
 
 
-func tile(pos):
+func tile(pos, n, s, e, w):
     return pos.x + pos.y
 
 
 func ports(x, y, dir):
-    var p = Globals.Port.new()
+    var p = Globals.Port.new(self)
 
-    match [x, y, dir]:
-        [0, 0, Globals.Direction.NORTH]:
-            p.power = -10
+    if x == 0 and y == 0 and dir == Globals.Direction.NORTH:
+        p.electric = -10
 
     return p
