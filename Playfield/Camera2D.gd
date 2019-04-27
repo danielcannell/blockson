@@ -20,7 +20,7 @@ func update_pan(pos):
     self.offset -= delta * self.zoom
 
 
-func _input(event):
+func _unhandled_input(event):
     if event is InputEventMouseButton:
         if event.is_pressed():
             # zoom in

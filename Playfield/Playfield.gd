@@ -1,13 +1,19 @@
 extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var tilemap = find_node("TileMap")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-    pass # Replace with function body.
+    print("HELLO WORLD")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#    pass
+func get_tile_coord(viewport_pos):
+    var trans = tilemap.get_global_transform_with_canvas()
+    var local_pos = (viewport_pos - trans.get_origin()) / trans.get_scale()
+    return tilemap.world_to_map(local_pos)
+
+func _unhandled_input(event):
+    if event is InputEventMouseButton:
+        if not event.is_pressed():
+            print(get_tile_coord(event.position))
+    elif event is InputEventMouseMotion:
+        #print("mouse motion at: ", event.position)
+        pass
