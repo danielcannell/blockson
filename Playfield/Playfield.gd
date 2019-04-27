@@ -71,6 +71,7 @@ func update_placing(coord):
 
 
 func finish_placing(coord):
+    var success = false
     if not placing:
         return
 
@@ -92,6 +93,7 @@ func finish_placing(coord):
                 tiles[p] = placing
                 tilemap.set_cell(p.x, p.y, placing.tile(offset))
         machines.append(placing)
+        success = true
     else:
         print("Bad")
 
@@ -99,7 +101,8 @@ func finish_placing(coord):
     placing = null
     var placement = get_node("Placement")
     placement.set_pos(null)
-    emit_signal("end_placing")
+    emit_signal("end_placing", success)
+    emit_signal("balance_changed", 500)
 
 
 func on_ui_request_placement(name):

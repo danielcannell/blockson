@@ -13,3 +13,5 @@ pause_mode = 1
 script = ExtResource( 3 )
 
 [connection signal="request_placement" from="UI" to="Playfield" method="on_ui_request_placement"]
+[connection signal="balance_changed" from="Playfield" to="UI" method="on_playfield_balance_changed"]
+[connection signal="end_placing" from="Playfield" to="UI" method="on_playfield_end_placing"]

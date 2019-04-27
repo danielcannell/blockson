@@ -16,19 +16,100 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -180.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel"]
-rect_min_size = Vector2( 180, 600 )
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+anchor_bottom = 1.0
+margin_right = 180.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="BalanceContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_right = 180.0
+margin_bottom = 14.0
+
+[node name="BalanceName" type="Label" parent="CanvasLayer/Panel/VBoxContainer/BalanceContainer"]
+margin_right = 50.0
+margin_bottom = 14.0
+text = "Balance"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/Panel/VBoxContainer/BalanceContainer"]
+margin_left = 54.0
+margin_right = 144.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Balance" type="Label" parent="CanvasLayer/Panel/VBoxContainer/BalanceContainer"]
+margin_left = 148.0
+margin_right = 180.0
+margin_bottom = 14.0
+text = "0BTC"
+align = 2
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 18.0
+margin_right = 180.0
+margin_bottom = 22.0
+
+[node name="ThinkRateContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 26.0
+margin_right = 180.0
+margin_bottom = 40.0
+
+[node name="ThinkRateName" type="Label" parent="CanvasLayer/Panel/VBoxContainer/ThinkRateContainer"]
+margin_right = 64.0
+margin_bottom = 14.0
+text = "Think-rate"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/Panel/VBoxContainer/ThinkRateContainer"]
+margin_left = 68.0
+margin_right = 151.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ThinkRate" type="Label" parent="CanvasLayer/Panel/VBoxContainer/ThinkRateContainer"]
+margin_left = 155.0
+margin_right = 180.0
+margin_bottom = 14.0
+text = "1Hz"
+align = 2
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 44.0
+margin_right = 180.0
+margin_bottom = 48.0
+
+[node name="Shop Header" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 52.0
+margin_right = 180.0
+margin_bottom = 66.0
+text = "Shop"
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 70.0
+margin_right = 180.0
+margin_bottom = 582.0
+rect_min_size = Vector2( 180, 400 )
 rect_clip_content = false
 focus_mode = 1
 size_flags_vertical = 3
 theme = SubResource( 1 )
 scroll_horizontal_enabled = false
 
-[node name="ShopList" type="VBoxContainer" parent="CanvasLayer/Panel/ScrollContainer"]
+[node name="ShopList" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/ScrollContainer"]
 margin_right = 180.0
-margin_bottom = 600.0
+margin_bottom = 512.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 2 )
 
+[node name="Footer" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 586.0
+margin_right = 180.0
+margin_bottom = 600.0
+text = "Footer"
+
+[connection signal="item_request" from="CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList" to="." method="_on_shopList_item_request"]
