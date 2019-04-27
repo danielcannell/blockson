@@ -8,8 +8,12 @@ onready var shop_list = get_node("CanvasLayer/Panel/ScrollContainer/ShopList")
 
 
 func _ready():
-    for machine in Config.MACHINES:
-        add_item(machine)
+    for machine in Globals.MACHINES:
+        shop_list.make_machine_item(machine)
+
+    for wire in Globals.WIRES:
+        shop_list.make_wire_item(wire)
+
     shop_list.connect("item_request", self, "item_request")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,7 +22,3 @@ func _ready():
 
 func item_request(type):
     emit_signal("request_placement", type)
-
-
-func add_item(item):
-    var btn = shop_list.make_item(item)

@@ -1,5 +1,7 @@
 extends Node2D
 
+const Wire = preload("res://Machines/Wire.gd")
+
 signal end_placing
 signal balance_changed
 
@@ -9,9 +11,13 @@ onready var background = find_node("Background")
 var balance = 0
 
 var machines = []
+var wires = []
 var tiles = {}
 
+var placing_wire = false
 var placing = null
+var placing_start = null
+var placing_end = null
 
 
 func _ready():
@@ -29,12 +35,6 @@ func get_tile_coord(viewport_pos):
     return tilemap.world_to_map(local_pos)
 
 
-func get_viewport_pos(tile_coord):
-    var trans = tilemap.get_global_transform_with_canvas()
-    var local_pos = tilemap.map_to_world(tile_coord)
-    return local_pos * trans.get_scale() #+ trans.get_origin()
-
-
 func _unhandled_input(event):
     if event is InputEventMouseButton:
         if event.button_index == BUTTON_LEFT:
@@ -47,58 +47,109 @@ func _unhandled_input(event):
 
 
 func begin_placing(name):
-    placing = Config.MACHINES[name].new()
-
     var placement = get_node("Placement")
 
-    #placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
-    placement.set_size(placing.size() * tilemap.get_cell_size())
+    placement.set_pos(null)
+    placement.set_size(null)
+
+    if name in Globals.MACHINES:
+        placing = Globals.MACHINES[name].new()
+        placing_wire = false
+        placement.set_size(placing.size() * tilemap.get_cell_size())
+    elif name in Globals.WIRES:
+        placing = Globals.WIRES[name]
+        placing_wire = true
+        placing_start = null
+    else:
+        print("ERROR: What is this?")
+        return
 
 
 func update_placing(coord):
-    if placing:
-        var ok = true
-        var size = placing.size()
-        for i in range(size[0]):
-            for j in range(size[1]):
-                var p = coord + Vector2(i, j)
-                if p in tiles or p.x < 0 or p.x >= Config.MAP_WIDTH or p.y < 0 or p.y >= Config.MAP_HEIGHT:
-                    ok = false
-
-        var placement = get_node("Placement")
-        placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
-        placement.set_ok(ok)
-
-
-func finish_placing(coord):
-    if not placing:
+    if placing == null:
         return
 
+    var placement = get_node("Placement")
+
+    if placing_wire:
+        if placing_start != null:
+            placing_end = coord
+
+            if abs(placing_end.y - placing_start.y) > abs(placing_end.x - placing_start.x):
+                placing_end.x = placing_start.x
+            else:
+                placing_end.y = placing_start.y
+
+            var a = placing_start
+            var b = placing_end
+
+            if b < a:
+                var tmp = a
+                a = b
+                b = tmp
+
+            placement.set_pos(tilemap.get_position() + a * tilemap.get_cell_size())
+            placement.set_size((b - a + Vector2(1, 1)) * tilemap.get_cell_size())
+    else:
+        placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
+        placement.set_ok(check_placement(coord))
+
+
+func check_placement(coord):
     var size = placing.size()
     var ok = true
 
-    for i in range(size[0]):
-        for j in range(size[1]):
+    for i in range(size.x):
+        for j in range(size.y):
             var p = coord + Vector2(i, j)
-            if p in tiles or p.x < 0 or p.x >= Config.MAP_WIDTH or p.y < 0 or p.y >= Config.MAP_HEIGHT:
+            var occupied = p in tiles and not tiles[p].is_wire()
+            if occupied or p.x < 0 or p.x >= Config.MAP_WIDTH or p.y < 0 or p.y >= Config.MAP_HEIGHT:
                 ok = false
 
-    if ok:
-        print("Placing")
-        for i in range(size[0]):
-            for j in range(size[1]):
-                var offset = Vector2(i, j)
-                var p = coord + offset
-                tiles[p] = placing
-                tilemap.set_cell(p.x, p.y, placing.tile(offset))
-        machines.append(placing)
+    return ok
+
+
+func finish_placing(coord):
+    if placing == null:
+        return
+
+    var placement = get_node("Placement")
+
+    if placing_wire:
+        if placing_start == null:
+            placing_start = coord
+            placement.set_pos(coord)
+            placement.set_size(tilemap.get_cell_size())
+            return
+        else:
+            for i in range(placing_start.x, placing_end.x + 1):
+                for j in range(placing_start.y, placing_end.y + 1):
+                    var offset = Vector2(i, j)
+                    var p = coord + offset
+
+                    var wire = Wire.new(placing)
+                    tiles[p] = wire
+                    wires.append(wire)
     else:
-        print("Bad")
+        var size = placing.size()
+
+        if check_placement(coord):
+            print("Placing")
+            for i in range(size[0]):
+                for j in range(size[1]):
+                    var offset = Vector2(i, j)
+                    var p = coord + offset
+                    tiles[p] = placing
+                    tilemap.set_cell(p.x, p.y, placing.tile(offset))
+
+            machines.append(placing)
+        else:
+            print("Bad")
 
 
     placing = null
-    var placement = get_node("Placement")
     placement.set_pos(null)
+    placement.set_size(null)
     emit_signal("end_placing")
 
 

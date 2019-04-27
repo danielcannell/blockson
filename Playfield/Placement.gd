@@ -9,7 +9,7 @@ var color = Color(0, 1, 0, 1)
 
 
 func _draw():
-    if pos and size:
+    if pos != null and size != null:
         draw_rect(Rect2(pos, size), color, false)
 
 

@@ -5,6 +5,10 @@ extends Node
 var pos = Vector2()
 
 
+func is_wire():
+    return false
+
+
 # The size of the machine in tiles.
 func size():
     print("ERROR: size() not implemented")
