@@ -2,6 +2,7 @@ extends Node2D
 
 
 signal request_placement
+signal tutorial_event
 
 
 onready var shop_list = get_node("CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList")
@@ -12,6 +13,7 @@ func _ready():
     get_node("CanvasLayer/Panel/VBoxContainer").add_constant_override("hseparation", 4)
     for machine in Config.MACHINES:
         add_item(machine)
+    emit_signal("tutorial_event", Globals.TutorialEvents.UI_READY)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

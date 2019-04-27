@@ -2,6 +2,7 @@ extends Node2D
 
 signal end_placing
 signal balance_changed
+signal tutorial_event
 
 onready var tilemap = find_node("TileMap")
 onready var background = find_node("Background")
@@ -21,6 +22,7 @@ func _ready():
     background.set_size(mapsize)
     background.set_position(-mapsize / 2)
     tilemap.set_position(-mapsize / 2)
+    emit_signal("tutorial_event", Globals.TutorialEvents.PLAYFIELD_READY)
 
 
 func get_tile_coord(viewport_pos):
