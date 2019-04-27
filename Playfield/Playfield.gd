@@ -11,9 +11,12 @@ func get_tile_coord(viewport_pos):
     return tilemap.world_to_map(local_pos)
 
 func _unhandled_input(event):
+    var tilepos = get_tile_coord(event.position)
+
     if event is InputEventMouseButton:
         if not event.is_pressed():
-            print(get_tile_coord(event.position))
+            print("release")
+            # Place or select building
     elif event is InputEventMouseMotion:
         #print("mouse motion at: ", event.position)
         pass
