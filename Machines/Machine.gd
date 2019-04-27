@@ -24,7 +24,7 @@ func tile(pos):
 # Which ports are exposed by the machine on this edge
 func ports(x, y, direction):
     print("ERROR: ports() not implmented")
-    return {}
+    return Globals.Ports.new()
 
 
 func _ready():
