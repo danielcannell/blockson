@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Config="*res://Config.gd"
+Globals="*res://Globals.gd"
 
 [display]
 
