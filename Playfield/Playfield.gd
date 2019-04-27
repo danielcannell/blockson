@@ -154,6 +154,7 @@ func finish_placing(coord):
 
                         if not (p in tiles):
                             var wire = Wire.new()
+                            wire.pos = p
                             tiles[p] = wire
                             wires.append(wire)
 
@@ -166,6 +167,7 @@ func finish_placing(coord):
 
         if check_placement(coord):
             print("Placing")
+            placing.pos = coord
             for i in range(size[0]):
                 for j in range(size[1]):
                     var offset = Vector2(i, j)

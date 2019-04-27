@@ -1,5 +1,6 @@
 extends Node
 
+var pos = Vector2()
 
 var kinds = {
     Globals.Wire.ELECTRIC: false,
