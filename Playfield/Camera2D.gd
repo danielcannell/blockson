@@ -52,7 +52,7 @@ func _unhandled_input(event):
 
 func _input(event):
     if event is InputEventMouseMotion:
-        if maybe_dragging:
+        if maybe_dragging and (event.global_position - drag_pos).length() > Config.DRAG_DEADZONE:
             dragging = true
             maybe_dragging = false
 
