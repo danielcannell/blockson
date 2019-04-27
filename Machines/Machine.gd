@@ -39,8 +39,6 @@ func get_ports_to_tile(x, y):
     var rightedge = pos.x + s.x
     var xdiff = x - pos.x
     var ydiff = y - pos.y
-    print(x, " ", leftedge, " ", rightedge)
-    print(y, " ", topedge, " ", bottomedge)
     if x == leftedge:
         return ports(0, ydiff, Globals.Direction.WEST)
     elif x == rightedge:

@@ -38,3 +38,6 @@ class Port:
 
     func _init(m):
         machine = m
+
+    func to_string():
+        return "Heat: %d, Electric: %d, Network: %d, 3Phase: %d" % [heat, electric, network, three_phase]

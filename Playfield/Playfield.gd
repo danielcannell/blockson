@@ -190,6 +190,40 @@ func finish_placing(coord):
     emit_signal("end_placing", success)
     emit_signal("balance_changed", 500)
 
+    recompute_tilemaps()
+
+
+func get_machine(x, y):
+    var p = Vector2(x, y)
+    if x < 0 or x >= Config.MAP_WIDTH or y < 0 or y >= Config.MAP_HEIGHT:
+        return null
+    return tiles.get(p)
+
+
+func recompute_tilemaps():
+    for x in range(Config.MAP_WIDTH):
+        for y in range(Config.MAP_HEIGHT):
+            var t = get_machine(x, y)
+            var tids = [-1, -1, -1, -1, -1]
+            if t != null:
+                var n = get_machine(x, y-1)
+                var s = get_machine(x, y+1)
+                var e = get_machine(x+1, y)
+                var w = get_machine(x-1, y)
+                if t.is_wire():
+                    var wire_ids = t.tile(n, s, e, w)
+                    tids[1] = wire_ids[0]
+                    tids[2] = wire_ids[1]
+                    tids[3] = wire_ids[2]
+                    tids[4] = wire_ids[3]
+                else:
+                    tids[0] = t.tile(Vector2(x, y) - t.pos, n, s, e, w)
+            tilemap.set_cell(x, y, tids[0])
+            cabletray_tilemap.set_cell(x, y, tids[1])
+            wiredata_tilemap.set_cell(x, y, tids[2])
+            wirepower_tilemap.set_cell(x, y, tids[3])
+            wire3phase_tilemap.set_cell(x, y, tids[4])
+
 
 func on_ui_request_placement(name):
     begin_placing(name)
