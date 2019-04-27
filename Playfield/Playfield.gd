@@ -190,13 +190,31 @@ func on_ui_request_placement(name):
     begin_placing(name)
 
 
-func is_adjacent(net, p):
-    for i in [-1, 0, 1]:
-        for j in [-1, 0, 1]:
-            var a = p + Vector2(i, j)
-            if a in net:
-                return true
-    return false
+func adjacent(p):
+    return [
+        p + Vector2(1, 0),
+        p + Vector2(0, 1),
+        p + Vector2(-1, 0),
+        p + Vector2(0, -1),
+    ]
+
+
+func ports(kind):
+    var ps = []
+    for net in nets(kind):
+        var ms = []
+
+        for w in net:
+            for pos in adjacent(w):
+                if not pos in tiles or tiles[pos].is_wire():
+                    continue
+
+                var machine = tiles[pos]
+                ms.push_back(machine)
+
+        ps.push_back(ms)
+
+    return ps
 
 
 func nets(kind):
@@ -216,27 +234,21 @@ func nets(kind):
             var current = todo.pop_back()
             net.push_back(current)
 
-            for i in [-1, 0, 1]:
-                for j in [-1, 0, 1]:
-                    if i == 0 and j == 0:
-                        continue
+            for a in adjacent(current):
+                if not a in tiles or not tiles[a].is_wire():
+                    continue
 
-                    var a = current + Vector2(i, j)
+                var adjacent = tiles[a]
 
-                    if not a in tiles or not tiles[a].is_wire():
-                        continue
+                if adjacent.mark:
+                    continue
 
-                    var adjacent = tiles[a]
+                adjacent.mark = true
 
-                    if adjacent.mark:
-                        continue
+                if not adjacent.has_kind(kind):
+                    continue
 
-                    adjacent.mark = true
-
-                    if not adjacent.has_kind(kind):
-                        continue
-
-                    todo.push_back(adjacent.pos)
+                todo.push_back(adjacent.pos)
 
         ns.push_back(net)
 
