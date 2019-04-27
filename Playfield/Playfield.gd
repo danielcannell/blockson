@@ -29,26 +29,47 @@ func get_tile_coord(viewport_pos):
     return tilemap.world_to_map(local_pos)
 
 
+func get_viewport_pos(tile_coord):
+    var trans = tilemap.get_global_transform_with_canvas()
+    var local_pos = tilemap.map_to_world(tile_coord)
+    return local_pos * trans.get_scale() #+ trans.get_origin()
+
+
 func _unhandled_input(event):
     if event is InputEventMouseButton:
         if event.button_index == BUTTON_LEFT:
             if not event.is_pressed():
                 finish_placing(get_tile_coord(event.position))
         elif event.button_index == BUTTON_RIGHT:
-            begin_placing("BasicMiner")
+            begin_placing("BasicMiner", get_tile_coord(event.position))
 
     elif event is InputEventMouseMotion:
         #print("mouse motion at: ", event.position)
         update_placing(get_tile_coord(event.position))
 
 
-func begin_placing(name):
+func begin_placing(name, coord):
     placing = Config.MACHINES[name].new()
+
+    var placement = get_node("Placement")
+
+    placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
+    placement.set_size(placing.size() * tilemap.get_cell_size())
 
 
 func update_placing(coord):
     if placing:
-        print(coord)
+        var ok = true
+        var size = placing.size()
+        for i in range(size[0]):
+            for j in range(size[1]):
+                var p = coord + Vector2(i, j)
+                if p in tiles or p.x < 0 or p.x >= Config.MAP_WIDTH or p.y < 0 or p.y >= Config.MAP_HEIGHT:
+                    ok = false
+
+        var placement = get_node("Placement")
+        placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
+        placement.set_ok(ok)
 
 
 func finish_placing(coord):
@@ -78,4 +99,6 @@ func finish_placing(coord):
 
 
     placing = null
+    var placement = get_node("Placement")
+    placement.set_pos(null)
     emit_signal("end_placing")

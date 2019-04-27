@@ -8,7 +8,7 @@ var pos = Vector2()
 # The size of the machine in tiles.
 func size():
     print("ERROR: size() not implemented")
-    return [0, 0]
+    return Vector2(0, 0)
 
 
 func cost():

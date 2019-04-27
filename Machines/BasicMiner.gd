@@ -2,7 +2,7 @@ extends "res://Machines/Machine.gd"
 
 
 func size():
-    return [3, 3]
+    return Vector2(3, 3)
 
 
 func tile(pos):
