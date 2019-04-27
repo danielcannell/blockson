@@ -93,23 +93,36 @@ func update_placing(coord):
 
             placement.set_pos(tilemap.get_position() + a * tilemap.get_cell_size())
             placement.set_size((b - a + Vector2(1, 1)) * tilemap.get_cell_size())
+            placement.set_ok(check_wire_placement(a, b))
     else:
         placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
         placement.set_ok(check_placement(coord))
 
 
+func check_wire_placement(start, end):
+    for i in range(start.x, end.x + 1):
+        for j in range(start.y, end.y + 1):
+            var p = Vector2(i, j)
+            if p in tiles and not tiles[p].is_wire():
+                return false
+            if p.x < 0 or p.x >= Config.MAP_WIDTH or p.y < 0 or p.y >= Config.MAP_HEIGHT:
+                return false
+
+    return true
+
+
 func check_placement(coord):
     var size = placing.size()
-    var ok = true
 
     for i in range(size.x):
         for j in range(size.y):
             var p = coord + Vector2(i, j)
-            var occupied = p in tiles and not tiles[p].is_wire()
-            if occupied or p.x < 0 or p.x >= Config.MAP_WIDTH or p.y < 0 or p.y >= Config.MAP_HEIGHT:
-                ok = false
+            if p in tiles:
+                return false
+            if p.x < 0 or p.x >= Config.MAP_WIDTH or p.y < 0 or p.y >= Config.MAP_HEIGHT:
+                return false
 
-    return ok
+    return true
 
 
 func finish_placing(coord):
@@ -134,19 +147,20 @@ func finish_placing(coord):
                 a = b
                 b = tmp
 
-            for i in range(a.x, b.x + 1):
-                for j in range(a.y, b.y + 1):
-                    var p = Vector2(i, j)
+            if check_wire_placement(a, b):
+                for i in range(a.x, b.x + 1):
+                    for j in range(a.y, b.y + 1):
+                        var p = Vector2(i, j)
 
-                    if not (p in tiles):
-                        var wire = Wire.new()
-                        tiles[p] = wire
-                        wires.append(wire)
+                        if not (p in tiles):
+                            var wire = Wire.new()
+                            tiles[p] = wire
+                            wires.append(wire)
 
-                    tiles[p].add_kind(placing)
-                    tilemap.set_cell(p.x, p.y, tiles[p].tile())
+                        tiles[p].add_kind(placing)
+                        tilemap.set_cell(p.x, p.y, tiles[p].tile())
 
-            success = true
+                success = true
     else:
         var size = placing.size()
 
@@ -161,8 +175,6 @@ func finish_placing(coord):
 
             machines.append(placing)
             success = true
-        else:
-            print("Bad")
 
 
     placing = null
