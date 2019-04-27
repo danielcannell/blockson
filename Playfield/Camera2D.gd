@@ -38,6 +38,9 @@ func _unhandled_input(event):
             if event.button_index == BUTTON_LEFT:
                 dragging = false
 
+
+func _input(event):
     if event is InputEventMouseMotion:
         if dragging:
             update_pan(event.global_position)
+            get_tree().set_input_as_handled()
