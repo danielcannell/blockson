@@ -5,6 +5,7 @@ margin_right = 160.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 160, 60 )
 size_flags_horizontal = 3
+toggle_mode = true
 
 [node name="NameLabel" type="Label" parent="."]
 margin_left = 8.30179

@@ -4,8 +4,10 @@ const Wire = preload("res://Machines/Wire.gd")
 
 signal end_placing
 signal balance_changed
+signal tutorial_event
 
 onready var tilemap = find_node("TileMap")
+onready var wiretilemap = find_node("WireTileMap")
 onready var background = find_node("Background")
 
 var balance = 0
@@ -27,6 +29,8 @@ func _ready():
     background.set_size(mapsize)
     background.set_position(-mapsize / 2)
     tilemap.set_position(-mapsize / 2)
+    wiretilemap.set_position(-mapsize / 2)
+    emit_signal("tutorial_event", Globals.TutorialEvents.PLAYFIELD_READY)
 
 
 func get_tile_coord(viewport_pos):
@@ -42,7 +46,6 @@ func _unhandled_input(event):
                 finish_placing(get_tile_coord(event.position))
 
     elif event is InputEventMouseMotion:
-        #print("mouse motion at: ", event.position)
         update_placing(get_tile_coord(event.position))
 
 
@@ -110,6 +113,7 @@ func check_placement(coord):
 
 
 func finish_placing(coord):
+    var success = false
     if placing == null:
         return
 
@@ -130,6 +134,7 @@ func finish_placing(coord):
                     var wire = Wire.new(placing)
                     tiles[p] = wire
                     wires.append(wire)
+            success = true
     else:
         var size = placing.size()
 
@@ -143,6 +148,7 @@ func finish_placing(coord):
                     tilemap.set_cell(p.x, p.y, placing.tile(offset))
 
             machines.append(placing)
+            success = true
         else:
             print("Bad")
 
@@ -150,7 +156,8 @@ func finish_placing(coord):
     placing = null
     placement.set_pos(null)
     placement.set_size(null)
-    emit_signal("end_placing")
+    emit_signal("end_placing", success)
+    emit_signal("balance_changed", 500)
 
 
 func on_ui_request_placement(name):

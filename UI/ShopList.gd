@@ -28,3 +28,8 @@ func make_wire_item(name):
 
 func item_request(name):
     emit_signal("item_request", name)
+
+
+func release_button():
+    for ch in get_children():
+        ch.pressed = false
