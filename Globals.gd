@@ -5,6 +5,7 @@ enum Direction {
     SOUTH,
     EAST,
     WEST
+}
 
 enum TutorialEvents {
     PLAYFIELD_READY,
