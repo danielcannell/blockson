@@ -1,14 +1,21 @@
 extends Node2D
 
+signal end_placing
+signal balance_changed
+
 onready var tilemap = find_node("TileMap")
 
-func _ready():
-    print("HELLO WORLD")
+var balance = 0
+
+var machines = []
+var tiles = {}
+
 
 func get_tile_coord(viewport_pos):
     var trans = tilemap.get_global_transform_with_canvas()
     var local_pos = (viewport_pos - trans.get_origin()) / trans.get_scale()
     return tilemap.world_to_map(local_pos)
+
 
 func _unhandled_input(event):
     var tilepos = get_tile_coord(event.position)
@@ -20,3 +27,7 @@ func _unhandled_input(event):
     elif event is InputEventMouseMotion:
         #print("mouse motion at: ", event.position)
         pass
+
+
+func begin_placing(name):
+    pass
