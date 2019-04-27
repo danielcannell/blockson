@@ -9,4 +9,5 @@ const MAP_HEIGHT = 32
 
 const MACHINES = {
     "BasicMiner": preload("res://Machines/BasicMiner.gd"),
+    "BasicRouter": preload("res://Machines/BasicRouter.gd"),
 }

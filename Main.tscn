@@ -12,3 +12,4 @@ pause_mode = 1
 [node name="Playfield" parent="." instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 
+[connection signal="request_placement" from="UI" to="Playfield" method="on_ui_request_placement"]

@@ -8,7 +8,8 @@ onready var shop_list = get_node("CanvasLayer/Panel/ScrollContainer/ShopList")
 
 
 func _ready():
-    add_item("BasicMiner")
+    for machine in Config.MACHINES:
+        add_item(machine)
     shop_list.connect("item_request", self, "item_request")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -40,20 +40,18 @@ func _unhandled_input(event):
         if event.button_index == BUTTON_LEFT:
             if not event.is_pressed():
                 finish_placing(get_tile_coord(event.position))
-        elif event.button_index == BUTTON_RIGHT:
-            begin_placing("BasicMiner", get_tile_coord(event.position))
 
     elif event is InputEventMouseMotion:
         #print("mouse motion at: ", event.position)
         update_placing(get_tile_coord(event.position))
 
 
-func begin_placing(name, coord):
+func begin_placing(name):
     placing = Config.MACHINES[name].new()
 
     var placement = get_node("Placement")
 
-    placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
+    #placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
     placement.set_size(placing.size() * tilemap.get_cell_size())
 
 
@@ -102,3 +100,7 @@ func finish_placing(coord):
     var placement = get_node("Placement")
     placement.set_pos(null)
     emit_signal("end_placing")
+
+
+func on_ui_request_placement(name):
+    begin_placing(name)
