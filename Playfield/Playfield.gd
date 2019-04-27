@@ -82,7 +82,7 @@ func finish_placing(coord):
     for i in range(size[0]):
         for j in range(size[1]):
             var p = coord + Vector2(i, j)
-            if p in tiles or p.x < 0 or p.x > Config.MAP_WIDTH or p.y < 0 or p.y > Config.MAP_HEIGHT:
+            if p in tiles or p.x < 0 or p.x >= Config.MAP_WIDTH or p.y < 0 or p.y >= Config.MAP_HEIGHT:
                 ok = false
 
     if ok:
