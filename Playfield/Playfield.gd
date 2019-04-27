@@ -126,14 +126,26 @@ func finish_placing(coord):
             placement.set_size(tilemap.get_cell_size())
             return
         else:
-            for i in range(placing_start.x, placing_end.x + 1):
-                for j in range(placing_start.y, placing_end.y + 1):
-                    var offset = Vector2(i, j)
-                    var p = coord + offset
+            var a = placing_start
+            var b = placing_end
 
-                    var wire = Wire.new(placing)
-                    tiles[p] = wire
-                    wires.append(wire)
+            if b < a:
+                var tmp = a
+                a = b
+                b = tmp
+
+            for i in range(a.x, b.x + 1):
+                for j in range(a.y, b.y + 1):
+                    var p = Vector2(i, j)
+
+                    if not (p in tiles):
+                        var wire = Wire.new()
+                        tiles[p] = wire
+                        wires.append(wire)
+
+                    tiles[p].add_kind(placing)
+                    tilemap.set_cell(p.x, p.y, tiles[p].tile())
+
             success = true
     else:
         var size = placing.size()

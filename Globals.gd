@@ -9,6 +9,7 @@ enum Direction {
 
 enum Wire {
     ELECTRIC,
+    THREE_PHASE,
     NETWORK,
 }
 
