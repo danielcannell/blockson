@@ -4,12 +4,13 @@ var dragging = false
 var drag_pos = Vector2()
 
 
-func update_zoom(ratio):
-    var new_scale = self.zoom.x * ratio
-    new_scale = min(new_scale, Config.MAX_ZOOM)
-    new_scale = max(new_scale, Config.MIN_ZOOM)
-    self.zoom.x = new_scale
-    self.zoom.y = new_scale
+func update_zoom(ratio, pos):
+    var new_scale = clamp(self.zoom.x * ratio, Config.MIN_ZOOM, Config.MAX_ZOOM)
+
+    var old_pos = get_global_mouse_position()
+    self.zoom = Vector2(new_scale, new_scale)
+    var new_pos = get_global_mouse_position()
+    self.offset += old_pos - new_pos
 
 
 func update_pan(pos):
@@ -24,11 +25,11 @@ func _input(event):
         if event.is_pressed():
             # zoom in
             if event.button_index == BUTTON_WHEEL_UP:
-                update_zoom(1 - Config.ZOOM_SPEED)
+                update_zoom(1 - Config.ZOOM_SPEED, event.position)
 
             # zoom out
             if event.button_index == BUTTON_WHEEL_DOWN:
-                update_zoom(1 + Config.ZOOM_SPEED)
+                update_zoom(1 + Config.ZOOM_SPEED, event.position)
 
             if event.button_index == BUTTON_LEFT:
                 dragging = true
