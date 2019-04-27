@@ -24,10 +24,7 @@ func add_item(item):
 
 
 func on_playfield_end_placing(placed):
-    if placed:
-        pass
-    else:
-        pass
+    shop_list.release_button()
 
 
 func on_playfield_balance_changed(balance):
