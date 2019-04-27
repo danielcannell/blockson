@@ -2,4 +2,4 @@ extends "res://Machines/Machine.gd"
 
 
 func size():
-    return [1, 1]
+    return [2, 5]
