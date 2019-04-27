@@ -1,0 +1,23 @@
+[gd_scene format=2]
+
+[node name="ShopButton" type="Button"]
+margin_right = 160.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 160, 60 )
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="."]
+margin_left = 8.30179
+margin_top = 10.9433
+margin_right = 116.302
+margin_bottom = 24.9433
+text = "Shop Item Name"
+
+[node name="CostLabel" type="Label" parent="."]
+margin_left = 9.7547
+margin_top = 35.0188
+margin_right = 53.7547
+margin_bottom = 49.0188
+size_flags_vertical = 1
+text = "Cost"
+
