@@ -16,6 +16,11 @@ func cost():
     return 0.0
 
 
+func tile(pos):
+    print("ERROR: tile() not implemented")
+    return 0
+
+
 func _ready():
     pass # Replace with function body.
 

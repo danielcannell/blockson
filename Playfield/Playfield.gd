@@ -68,9 +68,10 @@ func finish_placing(coord):
         print("Placing")
         for i in range(size[0]):
             for j in range(size[1]):
-                var p = coord + Vector2(i, j)
+                var offset = Vector2(i, j)
+                var p = coord + offset
                 tiles[p] = placing
-                tilemap.set_cell(p.x, p.y, 2)
+                tilemap.set_cell(p.x, p.y, placing.tile(offset))
         machines.append(placing)
     else:
         print("Bad")
