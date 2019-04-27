@@ -5,6 +5,7 @@ signal balance_changed
 signal tutorial_event
 
 onready var tilemap = find_node("TileMap")
+onready var wiretilemap = find_node("WireTileMap")
 onready var background = find_node("Background")
 
 var balance = 0
@@ -22,6 +23,7 @@ func _ready():
     background.set_size(mapsize)
     background.set_position(-mapsize / 2)
     tilemap.set_position(-mapsize / 2)
+    wiretilemap.set_position(-mapsize / 2)
     emit_signal("tutorial_event", Globals.TutorialEvents.PLAYFIELD_READY)
 
 
@@ -44,7 +46,6 @@ func _unhandled_input(event):
                 finish_placing(get_tile_coord(event.position))
 
     elif event is InputEventMouseMotion:
-        #print("mouse motion at: ", event.position)
         update_placing(get_tile_coord(event.position))
 
 
@@ -53,7 +54,6 @@ func begin_placing(name):
 
     var placement = get_node("Placement")
 
-    #placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
     placement.set_size(placing.size() * tilemap.get_cell_size())
 
 

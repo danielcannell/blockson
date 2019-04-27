@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Playfield/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://art/empty_tile.png" type="Texture" id=2]
 [ext_resource path="res://art/tileset.tres" type="TileSet" id=3]
-[ext_resource path="res://Playfield/Placement.gd" type="Script" id=4]
+[ext_resource path="res://art/cabletray.tres" type="TileSet" id=4]
+[ext_resource path="res://Playfield/Placement.gd" type="Script" id=5]
 
 [node name="Playfield" type="Node2D"]
 
@@ -26,6 +27,11 @@ tile_set = ExtResource( 3 )
 cell_size = Vector2( 32, 32 )
 format = 1
 
+[node name="WireTileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 32, 32 )
+format = 1
+
 [node name="Placement" type="Node2D" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
