@@ -2,6 +2,9 @@ extends Node
 
 var pos = Vector2()
 
+# Used for net detection
+var mark = false
+
 var kinds = {
     Globals.Wire.ELECTRIC: false,
     Globals.Wire.THREE_PHASE: false,
@@ -11,6 +14,10 @@ var kinds = {
 
 func add_kind(kind):
     kinds[kind] = true
+
+
+func has_kind(kind):
+    return kinds[kind]
 
 
 func is_wire():

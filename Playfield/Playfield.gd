@@ -188,3 +188,56 @@ func finish_placing(coord):
 
 func on_ui_request_placement(name):
     begin_placing(name)
+
+
+func is_adjacent(net, p):
+    for i in [-1, 0, 1]:
+        for j in [-1, 0, 1]:
+            var a = p + Vector2(i, j)
+            if a in net:
+                return true
+    return false
+
+
+func nets(kind):
+    var ns = []
+
+    for w in wires:
+        w.mark = false
+
+    for w in wires:
+        if not w.has_kind(kind) or w.mark:
+            continue
+
+        var net = []
+        var todo = [w.pos]
+
+        while todo:
+            var current = todo.pop_back()
+            net.push_back(current)
+
+            for i in [-1, 0, 1]:
+                for j in [-1, 0, 1]:
+                    if i == 0 and j == 0:
+                        continue
+
+                    var a = current + Vector2(i, j)
+
+                    if not a in tiles or not tiles[a].is_wire():
+                        continue
+
+                    var adjacent = tiles[a]
+
+                    if adjacent.mark:
+                        continue
+
+                    adjacent.mark = true
+
+                    if not adjacent.has_kind(kind):
+                        continue
+
+                    todo.push_back(adjacent.pos)
+
+        ns.push_back(net)
+
+    return ns
