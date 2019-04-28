@@ -41,3 +41,10 @@ class Port:
 
     func to_string():
         return "Heat: %d, Electric: %d, Network: %d, 3Phase: %d" % [heat, electric, network, three_phase]
+
+
+# Pause in the debugger, or crash!
+func throw(msg):
+    print(msg)
+    var x = 0
+    var y = 1 / x
