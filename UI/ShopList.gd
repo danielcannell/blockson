@@ -43,7 +43,7 @@ func selected():
 
 
 func item_request(name):
-    release_button_except(name)        
+    release_button_except(name)
     emit_signal("item_request", name)
 
 

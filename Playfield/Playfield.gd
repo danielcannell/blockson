@@ -283,7 +283,8 @@ func on_ui_request_placement(name):
 func tick():
     print("Tick")
 
-    check_all_supplies()
+    for kind in Globals.WIRE_KINDS:
+        check_all_supplies(kind)
 
     print("**********")
     for machine in machines:
@@ -294,19 +295,31 @@ func tick():
     emit_signal("mining_result", thoughts_per_sec, bitcoin_per_sec)
 
 
-func check_all_supplies():
+func check_all_supplies(kind):
     # Mark all machines as OK
     for machine in machines:
-        machine.working = true
+        machine.working[kind] = true
+        machine.connected[kind] = 0
 
-    for kind in Globals.WIRE_KINDS:
-        var connected_ports = calculate_connected_ports(kind)
+    var connected_ports = calculate_connected_ports(kind)
 
-        for ports in connected_ports:
-            if not check_port_supplies(ports, kind):
-                # Mark all these ports as bad
-                for p in ports:
-                    p.machine.working = false
+    for ports in connected_ports:
+        update_downstream_connections(ports, kind)
+
+        if not check_port_supplies(ports, kind):
+            # Mark all these ports as bad
+            for p in ports:
+                p.machine.working[kind] = false
+
+    for machine in machines:
+        if machine.connected[kind] != machine.num_downstream_ports(kind):
+            machine.working[kind] = false
+
+
+func update_downstream_connections(ports, kind):
+    for p in ports:
+        if p.supplies[kind] < 0:
+            p.machine.connected[kind] += 1
 
 
 func check_port_supplies(ports, kind):

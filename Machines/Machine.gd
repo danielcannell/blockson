@@ -9,6 +9,13 @@ var working = {
 }
 
 
+var connected = {
+    Globals.Wire.ELECTRIC: 0,
+    Globals.Wire.NETWORK: 0,
+    Globals.Wire.THREE_PHASE: 0,
+}
+
+
 # Position of the top-left tile in this machine
 var pos = Vector2()
 
@@ -63,6 +70,14 @@ func get_ports_to_tile(x, y):
 func accepts_wire_from_tile(x, y, kind):
     var p = get_ports_to_tile(x, y)
     return p.supplies[kind] != 0
+
+
+func num_downstream_ports(kind):
+    var n = 0
+    for p in ports.values():
+        if p.supplies[kind] < 0:
+            n += 1
+    return n
 
 
 func _ready():

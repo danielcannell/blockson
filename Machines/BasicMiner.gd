@@ -16,16 +16,3 @@ func cost():
 
 func tile(pos, n, s, e, w):
     return pos.x + pos.y
-
-
-#
-#func ports(x, y, dir):
-#    var p = Globals.Port.new(self)
-#
-#    if x == 0 and y == 0 and dir == Globals.Direction.NORTH:
-#        p.supplies[Globals.Wire.ELECTRIC] = -10
-#
-#    if x == 1 and y == 2 and dir == Globals.Direction.EAST:
-#        p.supplies[Globals.Wire.NETWORK] = -1
-#
-#    return p
