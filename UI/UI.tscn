@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/UI.gd" type="Script" id=1]
-[ext_resource path="res://UI/ShopList.gd" type="Script" id=2]
-[ext_resource path="res://UI/PauseMenu.gd" type="Script" id=3]
-[ext_resource path="res://UI/TechTreePanel.gd" type="Script" id=4]
-[ext_resource path="res://UI/TechButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://art/trash_can.png" type="Texture" id=2]
+[ext_resource path="res://UI/ShopList.gd" type="Script" id=3]
+[ext_resource path="res://UI/PauseMenu.gd" type="Script" id=4]
+[ext_resource path="res://UI/TechTreePanel.gd" type="Script" id=5]
+[ext_resource path="res://UI/TechButton.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Theme" id=1]
 
@@ -107,7 +108,7 @@ margin_bottom = 488.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
 margin_top = 562.0
@@ -129,7 +130,7 @@ margin_top = 207.0
 margin_right = 610.0
 margin_bottom = 315.0
 window_title = "Pause Menu"
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu"]
 anchor_right = 1.0
@@ -150,7 +151,7 @@ margin_left = 197.709
 margin_top = 118.002
 margin_right = 659.709
 margin_bottom = 489.002
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/TechTreePanel"]
 anchor_right = 1.0
@@ -189,15 +190,15 @@ Mining"
 align = 1
 valign = 1
 
-[node name="Container" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="Container" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
 margin_top = 54.0
 margin_bottom = 138.0
 
-[node name="Container2" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="Container2" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
 margin_top = 142.0
 margin_bottom = 226.0
 
-[node name="Container3" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 5 )]
+[node name="Container3" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
 margin_top = 230.0
 margin_bottom = 314.0
 
@@ -221,11 +222,11 @@ Mining"
 align = 1
 valign = 1
 
-[node name="Container" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 5 )]
+[node name="Container" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
 margin_top = 54.0
 margin_bottom = 138.0
 
-[node name="Container2" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 5 )]
+[node name="Container2" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
 margin_top = 142.0
 margin_bottom = 226.0
 
@@ -248,11 +249,11 @@ text = "Power"
 align = 1
 valign = 1
 
-[node name="Container" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer3" instance=ExtResource( 5 )]
+[node name="Container" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer3" instance=ExtResource( 6 )]
 margin_top = 54.0
 margin_bottom = 138.0
 
-[node name="Container2" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer3" instance=ExtResource( 5 )]
+[node name="Container2" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer3" instance=ExtResource( 6 )]
 margin_top = 142.0
 margin_bottom = 226.0
 
