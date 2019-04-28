@@ -10,7 +10,7 @@ func cost():
 
 
 func tile(pos, n, s, e, w):
-    return 0
+    return 1
 
 
 func ports(x, y, dir):

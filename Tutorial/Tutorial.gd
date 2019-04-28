@@ -1,29 +1,35 @@
 extends CanvasLayer
 
-const events = Globals.TutorialEvents
-
 # If active is false, then the tutorial will not run.
 # If active is true, then the tutorial will run. Simples!
-var active = false
+var active = true
 var occured = []
 onready var popup = get_node("Popup")
 onready var instructions = get_node("Popup/Panel/VBoxContainer/RichTextLabel")
+var handlers = {
+    Globals.TutorialEvents.UI_READY: "handle_ui_ready",
+    Globals.TutorialEvents.PLAYFIELD_READY: null,
+}
+
+
+func _ready():
+    popup.get_close_button().connect("pressed", self, "handle_popup_ok_pressed")
+
 
 func handle_tutorial_event(ev):
-    if !active:
-        return
-
     if ev in occured:
         return
 
-    match ev:
-        events.UI_READY:
-            call_deferred("handle_ui_ready")
-
-        _:
-            print("ERROR: Unknown tutorial events")
-
     occured.append(ev)
+
+    if !active:
+        return
+
+    for h in handlers:
+        if h == ev:
+            if handlers[h] == null:
+                return
+            call_deferred(handlers[h])
 
 
 func handle_ui_ready():
