@@ -31,6 +31,13 @@ const MACHINES = {
     "Transformer": preload("res://Machines/Transformer.gd"),
 }
 
+var TECH_SPECS = {
+    "Bitcoin Miner": TechSpec.new(0, TechFlavour.BITCOIN, 0),
+    "Ethereum Miner": TechSpec.new(0, TechFlavour.ETHEREUM, 0),
+    "Basic Router": TechSpec.new(0, TechFlavour.POWER, 0),
+    "Transformer": TechSpec.new(0, TechFlavour.NETWORK, 0),
+}
+
 const WIRES = {
     "Electric Cable": Wire.ELECTRIC,
     "Network Cable": Wire.NETWORK,
@@ -82,6 +89,15 @@ class TechSpec:
         self.level = level
         self.flavour = flavour
         self.thoughts = thoughts
+
+
+class TechState:
+    var progress
+    var unlocked
+
+    func _init(progress, unlocked):
+        self.progress = progress
+        self.unlocked = unlocked
 
 
 # Pause in the debugger, or crash!
