@@ -332,9 +332,8 @@ func update_machines_working():
             if net.is_working():
                 ns.erase(net)
                 for p in net.ports:
-                    for kind in Globals.WIRE_KINDS:
-                        if p.supplies[kind] < 0:
-                            p.machine.connected[kind] += 1
+                    if p.supplies[net.kind] < 0:
+                        p.machine.connected[net.kind] += 1
                 changes = true
 
     print("NETS:")

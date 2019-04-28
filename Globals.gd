@@ -58,8 +58,8 @@ var TECH_SPECS = {
     "Router 3": TechSpec.new(2, TechFlavour.NETWORK, 1000),
 
     "Transformer": TechSpec.new(0, TechFlavour.POWER, 0),
-    "Transformer 2": TechSpec.new(0, TechFlavour.POWER, 100),
-    "Transformer 3": TechSpec.new(0, TechFlavour.POWER, 1000),
+    "Transformer 2": TechSpec.new(1, TechFlavour.POWER, 100),
+    "Transformer 3": TechSpec.new(2, TechFlavour.POWER, 1000),
 }
 
 const WIRES = {
