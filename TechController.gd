@@ -18,6 +18,10 @@ func _init():
             tech_states[name] = Globals.TechState.new(1.0, true)
         else:
             tech_states[name] = Globals.TechState.new(0.0, false)
+            
+
+func _ready():
+    emit_signal("tech_update", tech_states)
 
 
 func _process(delta):
