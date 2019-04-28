@@ -35,8 +35,13 @@ const MACHINES = {
     "Ethereum Miner 2": preload("res://Machines/EthereumMiner2.gd"),
     "Ethereum Miner 3": preload("res://Machines/EthereumMiner3.gd"),
 
-    "Basic Router": preload("res://Machines/BasicRouter.gd"),
+    "Router": preload("res://Machines/Router.gd"),
+    "Router 2": preload("res://Machines/Router2.gd"),
+    "Router 3": preload("res://Machines/Router3.gd"),
+
     "Transformer": preload("res://Machines/Transformer.gd"),
+    "Transformer 2": preload("res://Machines/Transformer2.gd"),
+    "Transformer 3": preload("res://Machines/Transformer3.gd"),
 }
 
 var TECH_SPECS = {
@@ -48,8 +53,13 @@ var TECH_SPECS = {
     "Ethereum Miner 2": TechSpec.new(1, TechFlavour.ETHEREUM, 100),
     "Ethereum Miner 3": TechSpec.new(2, TechFlavour.ETHEREUM, 1000),
 
-    "Basic Router": TechSpec.new(0, TechFlavour.NETWORK, 0),
+    "Router": TechSpec.new(0, TechFlavour.NETWORK, 0),
+    "Router 2": TechSpec.new(1, TechFlavour.NETWORK, 100),
+    "Router 3": TechSpec.new(2, TechFlavour.NETWORK, 1000),
+
     "Transformer": TechSpec.new(0, TechFlavour.POWER, 0),
+    "Transformer 2": TechSpec.new(0, TechFlavour.POWER, 100),
+    "Transformer 3": TechSpec.new(0, TechFlavour.POWER, 1000),
 }
 
 const WIRES = {
