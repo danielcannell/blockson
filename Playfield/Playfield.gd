@@ -3,7 +3,7 @@ extends Node2D
 const Wire = preload("res://Machines/Wire.gd")
 
 signal end_placing
-signal balance_changed
+signal mining_result
 signal tutorial_event
 
 onready var tilemap = find_node("TileMap")
@@ -13,8 +13,6 @@ onready var wirepower_tilemap = find_node("WirePowerTileMap")
 onready var wire3phase_tilemap = find_node("Wire3PhaseTileMap")
 onready var background = find_node("Background")
 
-var balance = 0
-
 var machines = []
 var wires = []
 var tiles = {}
@@ -23,6 +21,8 @@ var placing_wire = false
 var placing = null
 var placing_start = null
 var placing_end = null
+
+var tick_timer = Timer.new()
 
 
 func _ready():
@@ -38,6 +38,12 @@ func _ready():
     wirepower_tilemap.set_position(cpos)
     wire3phase_tilemap.set_position(cpos)
     emit_signal("tutorial_event", Globals.TutorialEvents.PLAYFIELD_READY)
+
+    tick_timer.wait_time = 1.0
+    tick_timer.connect("timeout", self, "tick")
+    tick_timer.start()
+
+    self.add_child(tick_timer)
 
 
 func get_tile_coord(viewport_pos):
@@ -183,7 +189,6 @@ func finish_placing(coord):
             machines.append(placing)
             success = true
 
-
     placing = null
     placement.set_pos(null)
     placement.set_size(null)
@@ -229,6 +234,13 @@ func on_ui_request_placement(name):
     begin_placing(name)
 
 
+func tick():
+    print("Tick")
+    var thoughts_per_sec = 1
+    var bitcoin_per_sec = 1
+    emit_signal("mining_result", thoughts_per_sec, bitcoin_per_sec)
+
+
 func adjacent(p):
     return [
         p + Vector2(1, 0),
@@ -249,7 +261,8 @@ func ports(kind):
                     continue
 
                 var machine = tiles[pos]
-                ms.push_back(machine)
+                if machine.accepts_wire_from_tile(w.x, w.y, kind):
+                    ms.push_back(machine.get_ports_to_tile(w.x, w.y))
 
         ps.push_back(ms)
 
