@@ -1,6 +1,15 @@
 extends "res://Machines/Machine.gd"
 
 
+func _init():
+    var p = Globals.Port.new(self, 0, 0, 1000000)
+    p.three_phase_fanout = 2
+    ports[Vector3(0, 0, Globals.Direction.NORTH)] = p
+    ports[Vector3(0, 0, Globals.Direction.SOUTH)] = p
+    ports[Vector3(0, 0, Globals.Direction.EAST)] = p
+    ports[Vector3(0, 0, Globals.Direction.WEST)] = p
+
+
 func size():
     return Vector2(1, 1)
 
@@ -11,10 +20,3 @@ func cost():
 
 func tile(pos, n, s, e, w):
     return 1
-
-
-func ports(x, y, dir):
-    var p = Globals.Port.new(self)
-    p.three_phase = 100
-    p.three_phase_fanout = 2
-    return p

@@ -5,6 +5,7 @@ const Wire = preload("res://Machines/Wire.gd")
 const AirVent = preload("res://Machines/AirVent.gd")
 const ThreePhaseSocket = preload("res://Machines/ThreePhaseSocket.gd")
 const NetworkSocket = preload("res://Machines/NetworkSocket.gd")
+const StatusEffect = preload("res://Machines/StatusEffect.tscn")
 
 signal end_placing
 signal mining_result
@@ -209,7 +210,6 @@ func finish_placing(coord):
         var size = placing.size()
 
         if check_placement(coord):
-            print("Placing")
             placing.pos = coord
             for i in range(size[0]):
                 for j in range(size[1]):
@@ -217,6 +217,11 @@ func finish_placing(coord):
                     var p = coord + offset
                     tiles[p] = placing
 
+            var se = StatusEffect.instance()
+            se.machine = placing
+            se.position = (placing.get_center_pos() * 32) + tilemap.position
+            placing.status_effect = se
+            add_child(se)
             machines.append(placing)
             success = true
 
@@ -271,10 +276,58 @@ func on_ui_request_placement(name):
 
 
 func tick():
-    print("Tick")
+    for kind in Globals.WIRE_KINDS:
+        check_all_supplies(kind)
+
     var thoughts_per_sec = 1
-    var bitcoin_per_sec = 1
+    var bitcoin_per_sec = 0
+
+    print("**********")
+    for machine in machines:
+        print(machine, " ", machine.working)
+
+        if machine.all_working():
+            thoughts_per_sec += machine.thoughts_per_sec
+            bitcoin_per_sec += machine.bitcoin_per_sec
+
     emit_signal("mining_result", thoughts_per_sec, bitcoin_per_sec)
+
+
+func check_all_supplies(kind):
+    # Mark all machines as OK
+    for machine in machines:
+        machine.checked = true
+        machine.working[kind] = true
+        machine.connected[kind] = 0
+
+    var connected_ports = calculate_connected_ports(kind)
+
+    for ports in connected_ports:
+        update_downstream_connections(ports, kind)
+
+        if not check_port_supplies(ports, kind):
+            # Mark all these ports as bad
+            for p in ports:
+                p.machine.working[kind] = false
+
+    for machine in machines:
+        if machine.connected[kind] != machine.num_downstream_ports(kind):
+            machine.working[kind] = false
+
+
+func update_downstream_connections(ports, kind):
+    for p in ports:
+        if p.supplies[kind] < 0:
+            p.machine.connected[kind] += 1
+
+
+func check_port_supplies(ports, kind):
+    var supply = 0
+
+    for p in ports:
+        supply += p.supplies[kind]
+
+    return supply > 0
 
 
 func adjacent(p):
@@ -286,9 +339,9 @@ func adjacent(p):
     ]
 
 
-func ports(kind):
+func calculate_connected_ports(kind):
     var ps = []
-    for net in nets(kind):
+    for net in calculate_nets(kind):
         var ms = []
 
         for w in net:
@@ -305,7 +358,7 @@ func ports(kind):
     return ps
 
 
-func nets(kind):
+func calculate_nets(kind):
     var ns = []
 
     for w in wires:
@@ -314,6 +367,8 @@ func nets(kind):
     for w in wires:
         if not w.has_kind(kind) or w.mark:
             continue
+
+        w.mark = true
 
         var net = []
         var todo = [w.pos]
@@ -346,8 +401,8 @@ func nets(kind):
 func on_ui_enter_delete_mode():
     complete_placing(false)
     begin_deleting()
-    
-    
+
+
 func begin_deleting():
     deleting = true
 
@@ -357,12 +412,12 @@ func finish_deleting(clicked_pos):
     if deleting_wire:
         wire_delete(clicked_pos)
         return
-    
+
     # If we clicked an empty space, just stop!
     if not clicked_pos in tiles:
         complete_deleting()
         return
-    
+
     # We're about to start deleting a wire
     var machine = tiles[clicked_pos]
     if machine.is_wire():
@@ -376,14 +431,14 @@ func finish_deleting(clicked_pos):
 
         complete_deleting()
         recompute_tilemaps()
-    
+
 
 func complete_deleting():
     emit_signal("delete_completed")
     deleting = false
     deleting_wire = false
     get_node("Placement").close()
-    
+
 
 func wire_delete(coord):
     var placement = get_node('Placement')
@@ -395,19 +450,19 @@ func wire_delete(coord):
         # Finish a wire delete
         placement.grow_wire(coord)
         var x = placement.wire_coords()
-        
+
         # If there is an obstacle, don't do anything
         if !check_wire_placement(x[0], x[1]):
             complete_deleting()
             return
-        
+
         # Delete all wires on route
         for i in range(x[0].x, x[1].x + 1):
             for j in range(x[0].y, x[1].y + 1):
                 var p = Vector2(i, j)
                 if p in tiles and tiles[p].is_wire():
                     tiles.erase(p)
-       
+
         placement.close()
         complete_deleting()
         recompute_tilemaps()
@@ -418,3 +473,7 @@ func update_delete_placement(coord):
         placement.grow_wire(coord)
         var x = placement.wire_coords()
         placement.set_ok(check_wire_placement(x[0], x[1]))
+
+
+func _process(delta):
+    Globals.time += delta

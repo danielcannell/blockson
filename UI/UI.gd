@@ -9,6 +9,7 @@ signal enter_delete_mode
 
 onready var shop_list = get_node("CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList")
 onready var balance_label = get_node("CanvasLayer/Panel/VBoxContainer/BalanceContainer/Balance")
+onready var think_rate_label = get_node("CanvasLayer/Panel/VBoxContainer/ThinkRateContainer/ThinkRate")
 var balance = 0.0
 var buttongroup = ButtonGroup.new()
 
@@ -35,10 +36,23 @@ func on_playfield_end_placing(placed):
     shop_list.release_button()
 
 
-func on_economy_balance_changed(balance):
-    self.balance = balance
+func format_thoughts(thoughts_per_sec):
+    if thoughts_per_sec > 1e12:
+        return "%.1f" % (thoughts_per_sec / 1e12) + "PHz"
+    if thoughts_per_sec > 1e9:
+        return "%.1f" % (thoughts_per_sec / 1e9) + "GHz"
+    if thoughts_per_sec > 1e6:
+        return "%.1f" % (thoughts_per_sec / 1e6) + "MHz"
+    if thoughts_per_sec > 1e3:
+        return "%.1f" % (thoughts_per_sec / 1e3) + "kHz"
+    return "%.f" % thoughts_per_sec + "Hz"
+
+
+func on_economy_balance_changed(bitcoin_balance, thoughts_per_sec):
+    self.balance = bitcoin_balance
     var msg = "%.f" % balance + "BTC"
     balance_label.set_text(msg)
+    think_rate_label.set_text(format_thoughts(thoughts_per_sec))
     shop_list.update_balance(balance)
 
 
