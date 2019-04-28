@@ -40,8 +40,8 @@ var TECH_SPECS = {
     "Bitcoin Miner 2": TechSpec.new(1, TechFlavour.BITCOIN, 100),
     "Ethereum Miner": TechSpec.new(0, TechFlavour.ETHEREUM, 0),
     "Ethereum Miner 2": TechSpec.new(1, TechFlavour.ETHEREUM, 100),
-    "Basic Router": TechSpec.new(0, TechFlavour.POWER, 0),
-    "Transformer": TechSpec.new(0, TechFlavour.NETWORK, 0),
+    "Basic Router": TechSpec.new(0, TechFlavour.NETWORK, 0),
+    "Transformer": TechSpec.new(0, TechFlavour.POWER, 0),
 }
 
 const WIRES = {
