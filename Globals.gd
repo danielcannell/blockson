@@ -24,6 +24,8 @@ enum TechFlavour {
     NETWORK,
 }
 
+const TECH_FLAVOURS = [TechFlavour.BITCOIN, TechFlavour.ETHEREUM, TechFlavour.POWER, TechFlavour.NETWORK]
+
 const MACHINES = {
     "Bitcoin Miner": preload("res://Machines/BitcoinMiner.gd"),
     "Ethereum Miner": preload("res://Machines/EthereumMiner.gd"),
@@ -98,6 +100,15 @@ class TechState:
     func _init(progress, unlocked):
         self.progress = progress
         self.unlocked = unlocked
+
+    func is_complete():
+        return unlocked and progress >= 1.0
+
+    func is_buildable():
+        return unlocked and progress <= 0.0
+
+    func is_building():
+        return unlocked and progress > 0.0 and progress < 1.0
 
 
 # Pause in the debugger, or crash!

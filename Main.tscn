@@ -29,6 +29,7 @@ script = ExtResource( 6 )
 [connection signal="tutorial_event" from="UI" to="Tutorial" method="handle_tutorial_event"]
 [connection signal="delete_completed" from="Playfield" to="UI" method="on_playfield_delete_completed"]
 [connection signal="end_placing" from="Playfield" to="UI" method="on_playfield_end_placing"]
+[connection signal="mining_result" from="Playfield" to="Economy/TechController" method="on_playfield_mining_result"]
 [connection signal="mining_result" from="Playfield" to="Economy" method="on_playfield_mining_result"]
 [connection signal="tutorial_event" from="Playfield" to="Tutorial" method="handle_tutorial_event"]
 [connection signal="balance_updated" from="Economy" to="UI" method="on_economy_balance_changed"]
