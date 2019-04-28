@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/UI.gd" type="Script" id=1]
 [ext_resource path="res://art/trash_can.png" type="Texture" id=2]
 [ext_resource path="res://UI/ShopList.gd" type="Script" id=3]
 [ext_resource path="res://UI/PauseMenu.gd" type="Script" id=4]
-[ext_resource path="res://UI/TechTreePanel.gd" type="Script" id=5]
-[ext_resource path="res://UI/TechButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/TechTreePanel.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Theme" id=1]
 
@@ -168,143 +167,7 @@ margin_right = 263.0
 margin_bottom = 20.0
 text = "Resume"
 
-[node name="TechTreePanel" type="PopupPanel" parent="CanvasLayer"]
-visible = true
-margin_left = 197.709
-margin_top = 118.002
-margin_right = 659.709
-margin_bottom = 489.002
-script = ExtResource( 5 )
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/TechTreePanel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = -4.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/TechTreePanel/ScrollContainer"]
-margin_right = 454.0
-margin_bottom = 363.0
-grow_horizontal = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-alignment = 1
-
-[node name="Control5" type="Control" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer"]
-margin_right = 23.0
-margin_bottom = 363.0
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer"]
-margin_left = 27.0
-margin_right = 111.0
-margin_bottom = 363.0
-
-[node name="Label" type="Label" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer"]
-margin_right = 84.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-text = "Ethereum
-Mining"
-align = 1
-valign = 1
-
-[node name="Container" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 54.0
-margin_bottom = 138.0
-
-[node name="Container2" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 142.0
-margin_bottom = 226.0
-
-[node name="Container3" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 230.0
-margin_bottom = 314.0
-
-[node name="Control" type="Control" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer"]
-margin_left = 115.0
-margin_right = 138.0
-margin_bottom = 363.0
-size_flags_horizontal = 3
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer"]
-margin_left = 142.0
-margin_right = 226.0
-margin_bottom = 363.0
-
-[node name="Label" type="Label" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer2"]
-margin_right = 84.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-text = "Bitcoin
-Mining"
-align = 1
-valign = 1
-
-[node name="Container" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
-margin_top = 54.0
-margin_bottom = 138.0
-
-[node name="Container2" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer2" instance=ExtResource( 6 )]
-margin_top = 142.0
-margin_bottom = 226.0
-
-[node name="Control2" type="Control" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer"]
-margin_left = 230.0
-margin_right = 253.0
-margin_bottom = 363.0
-size_flags_horizontal = 3
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer"]
-margin_left = 257.0
-margin_right = 341.0
-margin_bottom = 363.0
-
-[node name="Label" type="Label" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer3"]
-margin_right = 84.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-text = "Power"
-align = 1
-valign = 1
-
-[node name="Container" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer3" instance=ExtResource( 6 )]
-margin_top = 54.0
-margin_bottom = 138.0
-
-[node name="Container2" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer3" instance=ExtResource( 6 )]
-margin_top = 142.0
-margin_bottom = 226.0
-
-[node name="Control3" type="Control" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer"]
-margin_left = 345.0
-margin_right = 368.0
-margin_bottom = 363.0
-size_flags_horizontal = 3
-
-[node name="VBoxContainer4" type="VBoxContainer" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer"]
-margin_left = 372.0
-margin_right = 425.0
-margin_bottom = 363.0
-
-[node name="Label" type="Label" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer/VBoxContainer4"]
-margin_right = 53.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
-text = "Network"
-align = 1
-valign = 1
-
-[node name="Control4" type="Control" parent="CanvasLayer/TechTreePanel/ScrollContainer/HBoxContainer"]
-margin_left = 429.0
-margin_right = 454.0
-margin_bottom = 363.0
-size_flags_horizontal = 3
+[node name="TechTreePanel" parent="CanvasLayer" instance=ExtResource( 5 )]
 
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/TrashContainer/Button" to="." method="on_delete_button_pressed"]
 [connection signal="item_request" from="CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList" to="." method="_on_shopList_item_request"]
-[connection signal="toggled" from="CanvasLayer/Panel/VBoxContainer/Button" to="CanvasLayer/TechTreePanel" method="on_button_toggled"]
