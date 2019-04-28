@@ -171,3 +171,4 @@ text = "Resume"
 
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/TrashContainer/Button" to="." method="on_delete_button_pressed"]
 [connection signal="item_request" from="CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList" to="." method="_on_shopList_item_request"]
+[connection signal="toggled" from="CanvasLayer/Panel/VBoxContainer/Button" to="CanvasLayer/TechTreePanel" method="on_button_toggled"]
