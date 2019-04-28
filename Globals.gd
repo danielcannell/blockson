@@ -16,7 +16,8 @@ enum Wire {
 const WIRE_KINDS = [Wire.ELECTRIC, Wire.THREE_PHASE, Wire.NETWORK]
 
 const MACHINES = {
-    "Basic Miner": preload("res://Machines/BasicMiner.gd"),
+    "Bitcoin Miner": preload("res://Machines/BitcoinMiner.gd"),
+    "Ethereum Miner": preload("res://Machines/EthereumMiner.gd"),
     "Basic Router": preload("res://Machines/BasicRouter.gd"),
 }
 

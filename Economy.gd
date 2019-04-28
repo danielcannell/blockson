@@ -7,7 +7,7 @@ signal balance_updated
 var income_per_sec = 0.0
 var thoughts_per_sec = 0.0
 
-var btc_balance = 0.0
+var btc_balance = 100000.0
 
 
 func _process(delta):
@@ -18,7 +18,7 @@ func _process(delta):
 func on_playfield_mining_result(_thoughts_per_sec, _income_per_sec):
     thoughts_per_sec = _thoughts_per_sec
     income_per_sec = _income_per_sec
-    
+
 
 func on_ui_spend(amount):
     btc_balance -= amount
