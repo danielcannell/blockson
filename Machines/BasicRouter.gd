@@ -8,8 +8,8 @@ var tilemap = {
 
 func _init():
     ports[Vector3(0, 0, Globals.Direction.NORTH)] = Globals.Port.new(self, 0, -10, 0)
-    ports[Vector2(0, 0, Globals.Direction.SOUTH)] = Globals.Port.new(self, 0, 10, 0)
-    ports[Vector2(0, 0, Globals.Direction.WEST)] = Globals.Port.new(self, -10, 0, 0)
+    ports[Vector3(0, 0, Globals.Direction.SOUTH)] = Globals.Port.new(self, 0, 10, 0)
+    ports[Vector3(0, 0, Globals.Direction.WEST)] = Globals.Port.new(self, -10, 0, 0)
 
 
 func size():
