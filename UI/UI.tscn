@@ -28,6 +28,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="BalanceContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+editor/display_folded = true
 margin_right = 180.0
 margin_bottom = 14.0
 
@@ -56,6 +57,7 @@ margin_right = 180.0
 margin_bottom = 22.0
 
 [node name="ThinkRateContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+editor/display_folded = true
 margin_top = 26.0
 margin_right = 180.0
 margin_bottom = 40.0
@@ -84,15 +86,38 @@ margin_top = 44.0
 margin_right = 180.0
 margin_bottom = 48.0
 
-[node name="Shop Header" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="TrashContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_left = 7.0
 margin_top = 52.0
+margin_right = 172.0
+margin_bottom = 128.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer/TrashContainer"]
+margin_right = 165.0
+margin_bottom = 76.0
+rect_min_size = Vector2( 70, 76 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+text = "Remove Item"
+icon = ExtResource( 2 )
+
+[node name="HSeparator3" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 132.0
 margin_right = 180.0
-margin_bottom = 66.0
+margin_bottom = 136.0
+
+[node name="Shop Header" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 140.0
+margin_right = 180.0
+margin_bottom = 154.0
 text = "Shop"
 align = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/VBoxContainer"]
-margin_top = 70.0
+margin_top = 158.0
 margin_right = 180.0
 margin_bottom = 558.0
 rect_min_size = Vector2( 180, 400 )
@@ -282,5 +307,6 @@ margin_right = 454.0
 margin_bottom = 363.0
 size_flags_horizontal = 3
 
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/TrashContainer/Button" to="." method="on_delete_button_pressed"]
 [connection signal="item_request" from="CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList" to="." method="_on_shopList_item_request"]
 [connection signal="toggled" from="CanvasLayer/Panel/VBoxContainer/Button" to="CanvasLayer/TechTreePanel" method="on_button_toggled"]
