@@ -6,8 +6,8 @@ var tilemap = {
 }
 
 func _init():
-    ports[Vector3(0, 0, Globals.Direction.NORTH)] = Globals.Port.new(self, 0, 0, -50)
-    ports[Vector3(0, 0, Globals.Direction.SOUTH)] = Globals.Port.new(self, 50, 0, 0)
+    ports[Vector3(0, 0, Globals.Direction.NORTH)] = Globals.Port.new(self, 0, 0, -50, 0, 0, 0)
+    ports[Vector3(0, 0, Globals.Direction.SOUTH)] = Globals.Port.new(self, 50, 0, 0, 0, 0, 0)
 
     thoughts_per_sec = 0
     bitcoin_per_sec = 0

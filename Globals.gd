@@ -54,9 +54,6 @@ enum TutorialEvents {
 class Port:
     var machine = null
     var heat = 0.0
-    var electric_fanout = 0
-    var network_fanout = 0
-    var three_phase_fanout = 0
 
     var supplies = {
         Wire.ELECTRIC: 0.0,
@@ -64,29 +61,38 @@ class Port:
         Wire.THREE_PHASE: 0.0,
     }
 
-    func _init(m, electric, network, three_phase):
+    var fanout = {
+        Wire.ELECTRIC: 0,
+        Wire.NETWORK: 0,
+        Wire.THREE_PHASE: 0,
+    }
+
+    func _init(m, electric, network, three_phase, e_fanout, n_fanout, tp_fanout):
         machine = m
         supplies[Wire.ELECTRIC] = electric
         supplies[Wire.NETWORK] = network
         supplies[Wire.THREE_PHASE] = three_phase
+        fanout[Wire.ELECTRIC] = e_fanout
+        fanout[Wire.NETWORK] = n_fanout
+        fanout[Wire.THREE_PHASE] = tp_fanout
 
     func duplicate():
-        var p = Port.new(machine, supplies[Wire.ELECTRIC], supplies[Wire.NETWORK], supplies[Wire.THREE_PHASE])
+        var p = Port.new(machine,
+            supplies[Wire.ELECTRIC], supplies[Wire.NETWORK], supplies[Wire.THREE_PHASE],
+            fanout[Wire.ELECTRIC], fanout[Wire.NETWORK], fanout[Wire.THREE_PHASE]
+        )
         p.heat = heat
-        p.electric_fanout = electric_fanout
-        p.network_fanout = network_fanout
-        p.three_phase_fanout = three_phase_fanout
         return p
 
     func to_string():
         return "Port{Heat: %d, Electric: %d / %d, Network: %d / %d, 3Phase: %d / %d}" % [
             heat,
             supplies[Wire.ELECTRIC],
-            electric_fanout,
+            fanout[Wire.ELECTRIC],
             supplies[Wire.NETWORK],
-            network_fanout,
+            fanout[Wire.NETWORK],
             supplies[Wire.THREE_PHASE],
-            three_phase_fanout,
+            fanout[Wire.THREE_PHASE],
         ]
 
 

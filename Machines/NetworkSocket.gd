@@ -2,8 +2,7 @@ extends "res://Machines/Machine.gd"
 
 
 func _init():
-    var p = Globals.Port.new(self, 0, 100, 0)
-    p.network_fanout = 2
+    var p = Globals.Port.new(self, 0, 999999, 0, 0, 2, 0)
     ports[Vector3(0, 0, Globals.Direction.NORTH)] = p.duplicate()
     ports[Vector3(0, 0, Globals.Direction.SOUTH)] = p.duplicate()
     ports[Vector3(0, 0, Globals.Direction.EAST)] = p.duplicate()

@@ -2,7 +2,7 @@ extends "res://Machines/Machine.gd"
 
 
 func _init():
-    var p = Globals.Port.new(self, 0, 0, 0)
+    var p = Globals.Port.new(self, 0, 0, 0, 0, 0, 0)
     p.heat = -100
     ports[Vector3(0, 0, Globals.Direction.NORTH)] = p
     ports[Vector3(0, 0, Globals.Direction.SOUTH)] = p

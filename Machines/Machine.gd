@@ -68,7 +68,7 @@ func get_ports_to_tile(x, y):
         key = Vector3(xdiff, s.y-1, Globals.Direction.SOUTH)
 
     if key == null or not key in ports:
-        return Globals.Port.new(self, 0, 0, 0)
+        return Globals.Port.new(self, 0, 0, 0, 0, 0, 0)
     else:
         return ports[key]
 

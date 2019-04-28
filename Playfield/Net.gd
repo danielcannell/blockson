@@ -9,7 +9,7 @@ func _init(kind):
 
 
 func is_working():
-    return supply >= demand() and ports.size() < max_fanout()
+    return supply >= demand() and ports.size() <= max_fanout()
 
 
 func demand():
@@ -21,8 +21,11 @@ func demand():
 
 
 func max_fanout():
-    # todo find lowest non-negative fanout of any port
-    return 9999999
+    var f = 9999999
+    for p in ports:
+        if p.fanout[kind] > 0:
+            f = int(min(f, p.fanout[kind]))
+    return f
 
 
 func to_string():
