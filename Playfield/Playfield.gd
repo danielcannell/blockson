@@ -494,7 +494,7 @@ func update_delete_placement(coord):
 
 func _process(delta):
     Globals.time += delta
-    
+
 
 func cancel_all_placements():
     complete_placing(false)

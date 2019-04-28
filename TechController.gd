@@ -18,7 +18,7 @@ func _init():
             tech_states[name] = Globals.TechState.new(1.0, true)
         else:
             tech_states[name] = Globals.TechState.new(0.0, false)
-            
+
 
 func _ready():
     emit_signal("tech_update", tech_states)
@@ -46,6 +46,8 @@ func _process(delta):
         if state.is_complete():
             complete_tech()
 
+    emit_signal("tech_update", tech_states)
+
 
 func complete_tech():
     var levels = {}
@@ -67,18 +69,13 @@ func complete_tech():
         if spec.level <= levels[spec.flavour]:
             state.unlocked = true
 
-    emit_signal("tech_update", tech_states)
-
 
 func on_ui_tech_request(name):
     var state = tech_states[name]
 
-    if state.is_buildable:
+    if state.is_buildable():
         # Kick it off
         state.progress = 0.01
-
-        # Let the UI know
-        emit_signal("tech_update", tech_states)
 
 
 func on_playfield_mining_result(thoughts_per_sec, bitcoin_per_sec):

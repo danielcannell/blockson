@@ -86,7 +86,7 @@ func on_tech_update(tech_state):
 
 func _on_ShopList_cancel_item_request():
     emit_signal("cancel_placement_request")
-    
+
 
 func update_shop_list(tech_state):
     shop_list.release_button()
