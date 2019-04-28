@@ -20,10 +20,6 @@ func _ready():
 
     emit_signal("tutorial_event", Globals.TutorialEvents.UI_READY)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#    pass
-
 
 func on_playfield_end_placing(placed):
     shop_list.release_button()
