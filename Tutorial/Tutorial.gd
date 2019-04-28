@@ -2,7 +2,7 @@ extends CanvasLayer
 
 # If active is false, then the tutorial will not run.
 # If active is true, then the tutorial will run. Simples!
-var active = true
+var active = false
 var occured = []
 onready var popup = get_node("Popup")
 onready var instructions = get_node("Popup/Panel/VBoxContainer/RichTextLabel")
