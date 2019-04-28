@@ -25,6 +25,12 @@ var ports = {}
 var bitcoin_per_sec = 0
 var thoughts_per_sec = 0
 
+var temperature = 10;
+# termal energy output in J per second
+var thermal_output = 100;
+# j per degree
+var thermal_capacity = 100
+
 
 func is_wire():
     return false

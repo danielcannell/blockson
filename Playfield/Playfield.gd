@@ -19,6 +19,7 @@ onready var wiredata_tilemap = find_node("WireDataTileMap")
 onready var wirepower_tilemap = find_node("WirePowerTileMap")
 onready var wire3phase_tilemap = find_node("Wire3PhaseTileMap")
 onready var background = find_node("Background")
+onready var heat_sim = find_node("HeatSim")
 
 var machines = []
 var wires = []
@@ -46,6 +47,7 @@ func _ready():
     wiredata_tilemap.set_position(cpos)
     wirepower_tilemap.set_position(cpos)
     wire3phase_tilemap.set_position(cpos)
+    heat_sim.set_position(cpos)
     emit_signal("tutorial_event", Globals.TutorialEvents.PLAYFIELD_READY)
 
     tick_timer.wait_time = 1.0

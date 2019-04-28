@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Playfield/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://art/empty_tile.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://art/wire_power.tres" type="TileSet" id=6]
 [ext_resource path="res://art/wire_3phase.tres" type="TileSet" id=7]
 [ext_resource path="res://Playfield/Placement.gd" type="Script" id=8]
+[ext_resource path="res://Playfield/HeatSim.gd" type="Script" id=9]
 
 [node name="Playfield" type="Node2D"]
 
@@ -52,4 +53,7 @@ format = 1
 
 [node name="Placement" type="Node2D" parent="."]
 script = ExtResource( 8 )
+
+[node name="HeatSim" type="Node2D" parent="."]
+script = ExtResource( 9 )
 

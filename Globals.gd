@@ -77,6 +77,9 @@ class Port:
     var machine = null
     var heat = 0.0
 
+    # -1 inwards + 1 outwards, null not a fan
+    var air_flow = null
+
     var supplies = {
         Wire.ELECTRIC: 0.0,
         Wire.NETWORK: 0.0,
