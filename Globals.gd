@@ -19,6 +19,7 @@ const MACHINES = {
     "Bitcoin Miner": preload("res://Machines/BitcoinMiner.gd"),
     "Ethereum Miner": preload("res://Machines/EthereumMiner.gd"),
     "Basic Router": preload("res://Machines/BasicRouter.gd"),
+    "Transformer": preload("res://Machines/Transformer.gd"),
 }
 
 const WIRES = {

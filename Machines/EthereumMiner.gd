@@ -11,11 +11,11 @@ var tilemap = {
 }
 
 func _init():
-    #ports[Vector3(0, 0, Globals.Direction.NORTH)] = Globals.Port.new(self, -10, 0, 0)
+    ports[Vector3(0, 0, Globals.Direction.NORTH)] = Globals.Port.new(self, -10, 0, 0)
     ports[Vector3(1, 2, Globals.Direction.EAST)] = Globals.Port.new(self, 0, -1, 0)
 
     thoughts_per_sec = 100
-    bitcoint_per_sec = 0
+    bitcoin_per_sec = 0
 
 
 func size():

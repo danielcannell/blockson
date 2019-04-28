@@ -25,7 +25,7 @@ var ports = {}
 
 
 # Earning rates
-var bitcoint_per_sec = 0
+var bitcoin_per_sec = 0
 var thoughts_per_sec = 0
 
 

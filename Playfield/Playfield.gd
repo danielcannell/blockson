@@ -293,7 +293,7 @@ func tick():
 
         if machine.all_working():
             thoughts_per_sec += machine.thoughts_per_sec
-            bitcoin_per_sec += machine.bitcoint_per_sec
+            bitcoin_per_sec += machine.bitcoin_per_sec
 
     emit_signal("mining_result", thoughts_per_sec, bitcoin_per_sec)
 
