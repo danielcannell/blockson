@@ -453,7 +453,7 @@ var timer = Timer.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
     timer.connect("timeout", self, "tick")
-    timer.start(0.1)
+    # timer.start(0.1)
     add_child(timer)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
