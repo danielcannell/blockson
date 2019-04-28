@@ -33,11 +33,21 @@ class Port:
     var machine = null
     var heat = 0.0
     var electric = 0.0
+    var electric_fanout = 0
     var network = 0.0
+    var network_fanout = 0
     var three_phase = 0.0
+    var three_phase_fanout = 0
 
     func _init(m):
         machine = m
 
     func to_string():
-        return "Heat: %d, Electric: %d, Network: %d, 3Phase: %d" % [heat, electric, network, three_phase]
+        return "Port{Heat: %d, Electric: %d / %d, Network: %d / %d, 3Phase: %d / %d}" % [heat, electric, electric_fanout, network, network_fanout, three_phase, three_phase_fanout]
+
+
+# Pause in the debugger, or crash!
+func throw(msg):
+    print(msg)
+    var x = 0
+    var y = 1 / x
