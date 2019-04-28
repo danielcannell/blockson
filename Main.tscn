@@ -23,6 +23,7 @@ script = ExtResource( 5 )
 [node name="TechController" type="Node" parent="Economy"]
 script = ExtResource( 6 )
 
+[connection signal="cancel_placement_request" from="UI" to="Playfield" method="cancel_all_placements"]
 [connection signal="enter_delete_mode" from="UI" to="Playfield" method="on_ui_enter_delete_mode"]
 [connection signal="request_placement" from="UI" to="Playfield" method="on_ui_request_placement"]
 [connection signal="spend" from="UI" to="Economy" method="on_ui_spend"]
@@ -32,3 +33,4 @@ script = ExtResource( 6 )
 [connection signal="mining_result" from="Playfield" to="Economy" method="on_playfield_mining_result"]
 [connection signal="tutorial_event" from="Playfield" to="Tutorial" method="handle_tutorial_event"]
 [connection signal="balance_updated" from="Economy" to="UI" method="on_economy_balance_changed"]
+[connection signal="tech_update" from="Economy/TechController" to="UI" method="on_tech_update"]

@@ -3,7 +3,7 @@
 [ext_resource path="res://art/tech_button_bg.png" type="Texture" id=1]
 [ext_resource path="res://UI/Wipe.gd" type="Script" id=2]
 
-[node name="Container" type="Container"]
+[node name="Container" type="Control"]
 margin_right = 84.0
 margin_bottom = 84.0
 rect_min_size = Vector2( 84, 84 )
@@ -24,4 +24,10 @@ texture_normal = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+align = 1
+valign = 1
 

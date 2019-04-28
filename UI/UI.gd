@@ -1,13 +1,16 @@
 extends Node2D
 
 
+signal cancel_placement_request
 signal request_placement
 signal tutorial_event
 signal spend
 signal enter_delete_mode
+signal ui_tech_request
 
 
 onready var shop_list = get_node("CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList")
+onready var tech_tree = get_node("CanvasLayer/TechTreePanel")
 onready var balance_label = get_node("CanvasLayer/Panel/VBoxContainer/BalanceContainer/Balance")
 onready var think_rate_label = get_node("CanvasLayer/Panel/VBoxContainer/ThinkRateContainer/ThinkRate")
 var balance = 0.0
@@ -25,6 +28,14 @@ func _ready():
         shop_list.make_wire_item(wire, buttongroup)
 
     get_node("CanvasLayer/Panel/VBoxContainer/TrashContainer/Button").set_button_group(buttongroup)
+
+    # Testing
+    #on_tech_update({
+    #    "Bitcoin Miner": Globals.TechState.new(1, true),
+    #    "Ethereum Miner": Globals.TechState.new(1, true),
+    #    "Basic Router": Globals.TechState.new(1, true),
+    #    "Transformer": Globals.TechState.new(1, true),
+    #})
 
     emit_signal("tutorial_event", Globals.TutorialEvents.UI_READY)
 
@@ -66,3 +77,24 @@ func on_delete_button_pressed():
 
 func on_playfield_delete_completed():
     get_node("CanvasLayer/Panel/VBoxContainer/TrashContainer/Button").pressed = false
+
+
+func on_tech_update(tech_state):
+    update_shop_list(tech_state)
+    tech_tree.on_tech_update(tech_state)
+
+
+func _on_ShopList_cancel_item_request():
+    emit_signal("cancel_placement_request")
+    
+
+func update_shop_list(tech_state):
+    shop_list.release_button()
+    var cur_btns = []
+    for ch in shop_list.get_children():
+        if not ch.iname in Globals.WIRES:
+            shop_list.remove_child(ch)
+            call_deferred("free", ch)
+    for tech in tech_state:
+        if tech_state[tech].unlocked:
+            shop_list.make_machine_item(tech, buttongroup)
