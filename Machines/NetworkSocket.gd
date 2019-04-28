@@ -15,6 +15,6 @@ func tile(pos, n, s, e, w):
 
 func ports(x, y, dir):
     var p = Globals.Port.new(self)
-    p.network = 100
+    p.supplies[Globals.Wire.NETWORK] = 100
     p.network_fanout = 2
     return p

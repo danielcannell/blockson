@@ -178,7 +178,6 @@ func finish_placing(coord):
         var size = placing.size()
 
         if check_placement(coord):
-            print("Placing")
             placing.pos = coord
             for i in range(size[0]):
                 for j in range(size[1]):
@@ -236,9 +235,40 @@ func on_ui_request_placement(name):
 
 func tick():
     print("Tick")
+
+    check_all_supplies()
+
+    print("**********")
+    for machine in machines:
+        print(machine, " ", machine.working)
+
     var thoughts_per_sec = 1
     var bitcoin_per_sec = 1
     emit_signal("mining_result", thoughts_per_sec, bitcoin_per_sec)
+
+
+func check_all_supplies():
+    # Mark all machines as OK
+    for machine in machines:
+        machine.working = true
+
+    for kind in Globals.WIRE_KINDS:
+        var connected_ports = calculate_connected_ports(kind)
+
+        for ports in connected_ports:
+            if not check_port_supplies(ports, kind):
+                # Mark all these ports as bad
+                for p in ports:
+                    p.machine.working = false
+
+
+func check_port_supplies(ports, kind):
+    var supply = 0
+
+    for p in ports:
+        supply += p.supplies[kind]
+
+    return supply > 0
 
 
 func adjacent(p):
@@ -250,9 +280,9 @@ func adjacent(p):
     ]
 
 
-func ports(kind):
+func calculate_connected_ports(kind):
     var ps = []
-    for net in nets(kind):
+    for net in calculate_nets(kind):
         var ms = []
 
         for w in net:
@@ -269,7 +299,7 @@ func ports(kind):
     return ps
 
 
-func nets(kind):
+func calculate_nets(kind):
     var ns = []
 
     for w in wires:

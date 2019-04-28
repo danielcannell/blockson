@@ -1,8 +1,19 @@
 extends Node
 
 
+# Set based on whether all supplies are satisfied
+var working = {
+    Globals.Wire.ELECTRIC: false,
+    Globals.Wire.NETWORK: false,
+    Globals.Wire.THREE_PHASE: false,
+}
+
+
 # Position of the top-left tile in this machine
 var pos = Vector2()
+
+
+var ports = {}
 
 
 func is_wire():
@@ -22,11 +33,6 @@ func tile(pos, n, s, e, w):
     Globals.throw("ERROR: tile() not implemented")
 
 
-# Which ports are exposed by the machine on this edge
-func ports(x, y, direction):
-    Globals.throw("ERROR: ports() not implmented")
-
-
 func get_ports_to_tile(x, y):
     var s = size()
     var leftedge = pos.x - 1
@@ -35,28 +41,28 @@ func get_ports_to_tile(x, y):
     var rightedge = pos.x + s.x
     var xdiff = x - pos.x
     var ydiff = y - pos.y
+
+    var key = null
+
     if x == leftedge:
-        return ports(0, ydiff, Globals.Direction.WEST)
+        key = Vector3(0, ydiff, Globals.Direction.WEST)
     elif x == rightedge:
-        return ports(s.x-1, ydiff, Globals.Direction.EAST)
+        key = Vector3(s.x-1, ydiff, Globals.Direction.EAST)
     elif y == topedge:
-        return ports(xdiff, 0, Globals.Direction.NORTH)
+        key = Vector3(xdiff, 0, Globals.Direction.NORTH)
     elif y == bottomedge:
-        return ports(xdiff, s.y-1, Globals.Direction.SOUTH)
-    return Globals.Port.new(self)
+        key = Vector3(xdiff, s.y-1, Globals.Direction.SOUTH)
+
+    if key == null or not key in ports:
+        return Globals.Port.new(self, 0, 0, 0)
+    else:
+        return ports[key]
 
 
 # Whether a wire of a certain kind should connect from a given tile
 func accepts_wire_from_tile(x, y, kind):
     var p = get_ports_to_tile(x, y)
-    match kind:
-        Globals.Wire.ELECTRIC:
-            return p.electric != 0
-        Globals.Wire.NETWORK:
-            return p.network != 0
-        Globals.Wire.THREE_PHASE:
-            return p.three_phase != 0
-    return false
+    return p.supplies[kind] != 0
 
 
 func _ready():
