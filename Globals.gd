@@ -70,6 +70,14 @@ class Port:
         supplies[Wire.NETWORK] = network
         supplies[Wire.THREE_PHASE] = three_phase
 
+    func duplicate():
+        var p = Port.new(machine, supplies[Wire.ELECTRIC], supplies[Wire.NETWORK], supplies[Wire.THREE_PHASE])
+        p.heat = heat
+        p.electric_fanout = electric_fanout
+        p.network_fanout = network_fanout
+        p.three_phase_fanout = three_phase_fanout
+        return p
+
     func to_string():
         return "Port{Heat: %d, Electric: %d / %d, Network: %d / %d, 3Phase: %d / %d}" % [
             heat,
