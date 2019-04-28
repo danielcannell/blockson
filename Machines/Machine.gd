@@ -6,14 +6,6 @@ var status_effect = null
 var checked = false
 
 
-# Set based on whether all supplies are satisfied
-var working = {
-    Globals.Wire.ELECTRIC: false,
-    Globals.Wire.NETWORK: false,
-    Globals.Wire.THREE_PHASE: false,
-}
-
-
 var connected = {
     Globals.Wire.ELECTRIC: 0,
     Globals.Wire.NETWORK: 0,
@@ -55,13 +47,6 @@ func get_center_pos():
     return pos + size() / 2
 
 
-func all_working():
-    for w in working.values():
-        if not w:
-            return false
-    return true
-
-
 func get_ports_to_tile(x, y):
     var s = size()
     var leftedge = pos.x - 1
@@ -94,17 +79,32 @@ func accepts_wire_from_tile(x, y, kind):
     return p.supplies[kind] != 0
 
 
-func num_downstream_ports(kind):
-    var n = 0
+func get_source_ports(kind):
+    var ps = []
+    for p in ports.values():
+        if p.supplies[kind] > 0:
+            ps.push_back(p)
+    return ps
+
+
+func get_sink_ports(kind):
+    var ps = []
     for p in ports.values():
         if p.supplies[kind] < 0:
-            n += 1
-    return n
+            ps.push_back(p)
+    return ps
 
 
-func _ready():
-    pass # Replace with function body.
+func num_sink_ports(kind):
+    return get_sink_ports(kind).size()
 
 
-func _process(delta):
-    pass
+func working(kind):
+    return connected[kind] >= num_sink_ports(kind)
+
+
+func is_working():
+    for kind in Globals.WIRE_KINDS:
+        if not working(kind):
+            return false
+    return true
