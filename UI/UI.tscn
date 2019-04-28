@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/UI.gd" type="Script" id=1]
-[ext_resource path="res://UI/ShopList.gd" type="Script" id=2]
-[ext_resource path="res://UI/PauseMenu.gd" type="Script" id=3]
+[ext_resource path="res://art/trash_can.png" type="Texture" id=2]
+[ext_resource path="res://UI/ShopList.gd" type="Script" id=3]
+[ext_resource path="res://UI/PauseMenu.gd" type="Script" id=4]
 
 [sub_resource type="Theme" id=1]
 
@@ -25,6 +26,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="BalanceContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+editor/display_folded = true
 margin_right = 180.0
 margin_bottom = 14.0
 
@@ -53,6 +55,7 @@ margin_right = 180.0
 margin_bottom = 22.0
 
 [node name="ThinkRateContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+editor/display_folded = true
 margin_top = 26.0
 margin_right = 180.0
 margin_bottom = 40.0
@@ -81,15 +84,38 @@ margin_top = 44.0
 margin_right = 180.0
 margin_bottom = 48.0
 
-[node name="Shop Header" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="TrashContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_left = 7.0
 margin_top = 52.0
+margin_right = 172.0
+margin_bottom = 128.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer/TrashContainer"]
+margin_right = 165.0
+margin_bottom = 76.0
+rect_min_size = Vector2( 70, 76 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+text = "Remove Item"
+icon = ExtResource( 2 )
+
+[node name="HSeparator3" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 132.0
 margin_right = 180.0
-margin_bottom = 66.0
+margin_bottom = 136.0
+
+[node name="Shop Header" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 140.0
+margin_right = 180.0
+margin_bottom = 154.0
 text = "Shop"
 align = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/VBoxContainer"]
-margin_top = 70.0
+margin_top = 158.0
 margin_right = 180.0
 margin_bottom = 582.0
 rect_min_size = Vector2( 180, 400 )
@@ -101,11 +127,11 @@ scroll_horizontal_enabled = false
 
 [node name="ShopList" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/ScrollContainer"]
 margin_right = 180.0
-margin_bottom = 512.0
+margin_bottom = 424.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Footer" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
 margin_top = 586.0
@@ -120,7 +146,7 @@ margin_top = 207.0
 margin_right = 610.0
 margin_bottom = 315.0
 window_title = "Pause Menu"
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu"]
 anchor_right = 1.0
@@ -135,4 +161,5 @@ margin_right = 263.0
 margin_bottom = 20.0
 text = "Resume"
 
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/TrashContainer/Button" to="." method="on_delete_button_pressed"]
 [connection signal="item_request" from="CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList" to="." method="_on_shopList_item_request"]

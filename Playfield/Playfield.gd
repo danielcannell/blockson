@@ -25,6 +25,8 @@ var placing_wire = false
 var placing = null
 var placing_start = null
 var placing_end = null
+var deleting = false
+var deleting_wire = false
 
 var tick_timer = Timer.new()
 
@@ -101,13 +103,20 @@ func _unhandled_input(event):
     if event is InputEventMouseButton:
         if event.button_index == BUTTON_LEFT:
             if not event.is_pressed():
-                finish_placing(get_tile_coord(event.position))
+                if deleting:
+                    finish_deleting(get_tile_coord(event.position))
+                else:
+                    finish_placing(get_tile_coord(event.position))
 
     elif event is InputEventMouseMotion:
-        update_placing(get_tile_coord(event.position))
+        if deleting_wire:
+            update_delete_placement(get_tile_coord(event.position))
+        else:
+            update_placing(get_tile_coord(event.position))
 
 
 func begin_placing(name):
+    deleting = false
     var placement = get_node("Placement")
 
     placement.set_pos(null)
@@ -234,12 +243,18 @@ func finish_placing(coord):
             machines.append(placing)
             success = true
 
+    complete_placing(success)
+    recompute_tilemaps()
+
+
+func complete_placing(success):
+    var placement = get_node("Placement")
     placing = null
     placement.set_pos(null)
     placement.set_size(null)
+    placing_start = null
+    placing_end = null
     emit_signal("end_placing", success)
-
-    recompute_tilemaps()
 
 
 func get_machine(x, y):
@@ -352,3 +367,84 @@ func nets(kind):
         ns.push_back(net)
 
     return ns
+
+
+func on_ui_enter_delete_mode():
+    complete_placing(false)
+    begin_deleting()
+    
+    
+func begin_deleting():
+    deleting = true
+
+
+func finish_deleting(clicked_pos):
+    if not clicked_pos in tiles:
+        complete_deleting()
+        return
+        
+    var machine = tiles[clicked_pos]
+        
+    if machine.is_wire():
+        wire_delete(clicked_pos)
+
+    var pos = machine.pos
+    var sz = machine.size()
+    for x in range(sz[0]):
+        for y in range(sz[1]):
+            tiles.erase(Vector2(pos[0] + x, pos[1] + y))
+
+    complete_deleting()
+    recompute_tilemaps()
+    
+
+func complete_deleting():
+    emit_signal("delete_completed")
+    deleting = false
+    deleting_wire = false
+    
+
+func wire_delete(coord):
+    var placement = get_node('Placement')
+    if placing_start == null:
+        deleting_wire = true
+        placing_start = coord
+        placement.set_pos(tilemap.get_position() + coord * tilemap.get_cell_size())
+        placement.set_size((Vector2(1, 1)) * tilemap.get_cell_size())
+        return
+    else:
+        var a = placing_start
+        var b = placing_end
+
+        if b < a:
+            var tmp = a
+            a = b
+            b = tmp
+
+        for i in range(a.x, b.x + 1):
+            for j in range(a.y, b.y + 1):
+                var p = Vector2(i, j)
+
+                tiles.erase(p)
+
+func update_delete_placement(coord):
+    if placing_start != null:
+        var placement = get_node("Placement")
+        placing_end = coord
+
+        if abs(placing_end.y - placing_start.y) > abs(placing_end.x - placing_start.x):
+            placing_end.x = placing_start.x
+        else:
+            placing_end.y = placing_start.y
+
+        var a = placing_start
+        var b = placing_end
+
+        if b < a:
+            var tmp = a
+            a = b
+            b = tmp
+
+        placement.set_pos(tilemap.get_position() + a * tilemap.get_cell_size())
+        placement.set_size((b - a + Vector2(1, 1)) * tilemap.get_cell_size())
+        placement.set_ok(check_wire_placement(a, b))

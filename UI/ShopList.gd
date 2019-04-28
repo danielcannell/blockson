@@ -7,7 +7,7 @@ const ShopButton = preload("res://UI/ShopButton.tscn");
 signal item_request
 
 
-func make_machine_item(name):
+func make_machine_item(name, buttongroup):
     var m = Globals.MACHINES[name]
     var btn = ShopButton.instance()
     var cost = m.new().cost()
@@ -15,15 +15,17 @@ func make_machine_item(name):
     btn.cost = cost
     btn.connect("pressed", self, "item_request", [name])
     add_child(btn)
+    btn.set_button_group(buttongroup)
     return btn
 
 
-func make_wire_item(name):
+func make_wire_item(name, buttongroup):
     var btn = ShopButton.instance()
     btn.iname = name
     btn.cost = 0
     btn.connect("pressed", self, "item_request", [name])
     add_child(btn)
+    btn.set_button_group(buttongroup)
     return btn
 
 
@@ -43,7 +45,6 @@ func selected():
 
 
 func item_request(name):
-    release_button_except(name)        
     emit_signal("item_request", name)
 
 
