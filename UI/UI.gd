@@ -98,3 +98,7 @@ func update_shop_list(tech_state):
     for tech in tech_state:
         if tech_state[tech].unlocked:
             shop_list.make_machine_item(tech, buttongroup)
+
+
+func on_test_button_pressed():
+    emit_signal("ui_tech_request", "Bitcoin Miner 2")

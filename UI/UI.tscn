@@ -27,6 +27,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="BalanceContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+editor/display_folded = true
 margin_right = 180.0
 margin_bottom = 14.0
 
@@ -145,6 +146,12 @@ margin_right = 180.0
 margin_bottom = 600.0
 text = "Footer"
 
+[node name="TestButton" type="Button" parent="CanvasLayer/Panel"]
+margin_left = -588.499
+margin_top = 193.342
+margin_right = -150.499
+margin_bottom = 346.342
+
 [node name="PauseMenu" type="WindowDialog" parent="CanvasLayer"]
 pause_mode = 2
 margin_left = 327.0
@@ -172,3 +179,4 @@ text = "Resume"
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/TrashContainer/Button" to="." method="on_delete_button_pressed"]
 [connection signal="item_request" from="CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList" to="." method="_on_shopList_item_request"]
 [connection signal="toggled" from="CanvasLayer/Panel/VBoxContainer/Button" to="CanvasLayer/TechTreePanel" method="on_button_toggled"]
+[connection signal="pressed" from="CanvasLayer/Panel/TestButton" to="." method="on_test_button_pressed"]
