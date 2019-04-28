@@ -11,24 +11,20 @@ func is_wire():
 
 # The size of the machine in tiles.
 func size():
-    print("ERROR: size() not implemented")
-    return Vector2(0, 0)
+    Globals.throw("ERROR: size() not implemented")
 
 
 func cost():
-    print("ERROR: cost() not implemented")
-    return 0.0
+    Globals.throw("ERROR: cost() not implemented")
 
 
 func tile(pos, n, s, e, w):
-    print("ERROR: tile() not implemented")
-    return 0
+    Globals.throw("ERROR: tile() not implemented")
 
 
 # Which ports are exposed by the machine on this edge
 func ports(x, y, direction):
-    print("ERROR: ports() not implmented")
-    return Globals.Ports.new(self)
+    Globals.throw("ERROR: ports() not implmented")
 
 
 func get_ports_to_tile(x, y):
