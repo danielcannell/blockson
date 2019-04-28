@@ -20,23 +20,7 @@ var buttongroup = ButtonGroup.new()
 func _ready():
     # Add constant 4-px spacing between vertical items
     get_node("CanvasLayer/Panel/VBoxContainer").add_constant_override("hseparation", 4)
-
-    for machine in Globals.MACHINES:
-        shop_list.make_machine_item(machine, buttongroup)
-
-    for wire in Globals.WIRES:
-        shop_list.make_wire_item(wire, buttongroup)
-
     get_node("CanvasLayer/Panel/VBoxContainer/TrashContainer/Button").set_button_group(buttongroup)
-
-    # Testing
-    #on_tech_update({
-    #    "Bitcoin Miner": Globals.TechState.new(1, true),
-    #    "Ethereum Miner": Globals.TechState.new(1, true),
-    #    "Basic Router": Globals.TechState.new(1, true),
-    #    "Transformer": Globals.TechState.new(1, true),
-    #})
-
     emit_signal("tutorial_event", Globals.TutorialEvents.UI_READY)
 
 
@@ -80,8 +64,11 @@ func on_playfield_delete_completed():
 
 
 func on_tech_update(tech_state):
-    update_shop_list(tech_state)
     tech_tree.on_tech_update(tech_state)
+
+
+func on_tech_shop_updated(tech_state):
+    update_shop_list(tech_state)
 
 
 func _on_ShopList_cancel_item_request():
@@ -92,12 +79,17 @@ func update_shop_list(tech_state):
     shop_list.release_button()
     var cur_btns = []
     for ch in shop_list.get_children():
-        if not ch.iname in Globals.WIRES:
-            shop_list.remove_child(ch)
-            call_deferred("free", ch)
+        shop_list.remove_child(ch)
+        call_deferred("free", ch)
+
+    for wire in Globals.WIRES:
+        shop_list.make_wire_item(wire, buttongroup)
+
     for tech in tech_state:
-        if tech_state[tech].unlocked:
+        if tech_state[tech].is_complete():
             shop_list.make_machine_item(tech, buttongroup)
+
+    shop_list.update_balance(balance)
 
 
 func on_test_button_pressed():

@@ -36,8 +36,11 @@ func on_tech_update(tech_state):
             btn_handles[tech].get_node("Wipe").set_percent(0)
 
         var state = tech_state[tech]
-        if state.progress > 0 && state.progress < 1:
-            btn_handles[tech].get_node("Wipe").set_percent(state.progress * 100)
 
-        btn_handles[tech].get_node("TextureButton").disabled = state.unlocked
+        if state.is_building():
+            btn_handles[tech].get_node("Wipe").set_percent(state.progress * 100)
+        else:
+            btn_handles[tech].get_node("Wipe").set_percent(0)
+
+        btn_handles[tech].get_node("TextureButton").disabled = not state.is_buildable()
 

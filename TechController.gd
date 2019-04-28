@@ -2,6 +2,7 @@ extends Node
 
 
 signal tech_update
+signal tech_shop_updated
 
 
 # name -> TechState
@@ -19,9 +20,12 @@ func _init():
         else:
             tech_states[name] = Globals.TechState.new(0.0, false)
 
+    complete_tech()
+
 
 func _ready():
     emit_signal("tech_update", tech_states)
+    emit_signal("tech_shop_updated", tech_states)
 
 
 func _process(delta):
@@ -37,6 +41,8 @@ func _process(delta):
 
     var thoughts_per_tech = thoughts_per_sec * delta / len(update)
 
+    var any_completed = false
+
     for tech in update:
         var spec = Globals.TECH_SPECS[tech]
         var state = tech_states[tech]
@@ -44,7 +50,11 @@ func _process(delta):
         state.progress += thoughts_per_tech / spec.thoughts
 
         if state.is_complete():
-            complete_tech()
+            any_completed = true
+
+    if any_completed:
+        complete_tech()
+        emit_signal("tech_shop_updated", tech_states)
 
     emit_signal("tech_update", tech_states)
 
