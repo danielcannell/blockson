@@ -17,6 +17,13 @@ enum Wire {
 
 const WIRE_KINDS = [Wire.ELECTRIC, Wire.THREE_PHASE, Wire.NETWORK]
 
+enum TechFlavour {
+    BITCOIN,
+    ETHEREUM,
+    POWER,
+    NETWORK,
+}
+
 const MACHINES = {
     "Bitcoin Miner": preload("res://Machines/BitcoinMiner.gd"),
     "Ethereum Miner": preload("res://Machines/EthereumMiner.gd"),
@@ -64,6 +71,17 @@ class Port:
             supplies[Wire.THREE_PHASE],
             three_phase_fanout,
         ]
+
+
+class TechSpec:
+    var level
+    var flavour
+    var thoughts
+
+    func _init(level, flavour, thoughts):
+        self.level = level
+        self.flavour = flavour
+        self.thoughts = thoughts
 
 
 # Pause in the debugger, or crash!

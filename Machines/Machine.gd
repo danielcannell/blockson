@@ -1,6 +1,11 @@
 extends Node
 
 
+# Tech stuff
+var tech_unlocked = false
+var tech_progress = 0.0
+
+
 # Node which controls rendering of status effects
 var status_effect = null
 var checked = false
@@ -45,6 +50,11 @@ func size():
 
 func cost():
     Globals.throw("ERROR: cost() not implemented")
+
+
+# Return Globals.TechSpec
+func tech_spec():
+    Globals.throw("ERROR: tech_tree() not implemented")
 
 
 func tile(pos, n, s, e, w):
