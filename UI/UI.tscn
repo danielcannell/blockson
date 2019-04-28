@@ -147,6 +147,7 @@ margin_bottom = 600.0
 text = "Footer"
 
 [node name="TestButton" type="Button" parent="CanvasLayer/Panel"]
+visible = false
 margin_left = -588.499
 margin_top = 193.342
 margin_right = -150.499
