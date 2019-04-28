@@ -372,6 +372,8 @@ func calculate_nets(kind):
         if not w.has_kind(kind) or w.mark:
             continue
 
+        w.mark = true
+
         var net = []
         var todo = [w.pos]
 
