@@ -62,3 +62,7 @@ func _on_shopList_item_request(type):
 
 func on_delete_button_pressed():
    emit_signal("enter_delete_mode") 
+
+
+func on_playfield_delete_completed():
+    get_node("CanvasLayer/Panel/VBoxContainer/TrashContainer/Button").pressed = false

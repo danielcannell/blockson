@@ -23,6 +23,7 @@ script = ExtResource( 5 )
 [connection signal="request_placement" from="UI" to="Playfield" method="on_ui_request_placement"]
 [connection signal="spend" from="UI" to="Economy" method="on_ui_spend"]
 [connection signal="tutorial_event" from="UI" to="Tutorial" method="handle_tutorial_event"]
+[connection signal="delete_completed" from="Playfield" to="UI" method="on_playfield_delete_completed"]
 [connection signal="end_placing" from="Playfield" to="UI" method="on_playfield_end_placing"]
 [connection signal="mining_result" from="Playfield" to="Economy" method="on_playfield_mining_result"]
 [connection signal="tutorial_event" from="Playfield" to="Tutorial" method="handle_tutorial_event"]
