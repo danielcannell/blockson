@@ -338,9 +338,10 @@ func update_machines_working():
                         p.machine.connected[net.kind] += 1
                 changes = true
 
-    print("NETS:")
+    # This is apparently required!
     for n in allnets:
-        print(n.to_string())
+        n.free()
+
 
 func adjacent(p):
     return [
