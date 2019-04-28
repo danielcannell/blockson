@@ -29,8 +29,12 @@ const TECH_FLAVOURS = [TechFlavour.BITCOIN, TechFlavour.ETHEREUM, TechFlavour.PO
 const MACHINES = {
     "Bitcoin Miner": preload("res://Machines/BitcoinMiner.gd"),
     "Bitcoin Miner 2": preload("res://Machines/BitcoinMiner2.gd"),
+    "Bitcoin Miner 3": preload("res://Machines/BitcoinMiner3.gd"),
+
     "Ethereum Miner": preload("res://Machines/EthereumMiner.gd"),
     "Ethereum Miner 2": preload("res://Machines/EthereumMiner2.gd"),
+    "Ethereum Miner 3": preload("res://Machines/EthereumMiner3.gd"),
+
     "Basic Router": preload("res://Machines/BasicRouter.gd"),
     "Transformer": preload("res://Machines/Transformer.gd"),
 }
@@ -38,8 +42,12 @@ const MACHINES = {
 var TECH_SPECS = {
     "Bitcoin Miner": TechSpec.new(0, TechFlavour.BITCOIN, 0),
     "Bitcoin Miner 2": TechSpec.new(1, TechFlavour.BITCOIN, 100),
+    "Bitcoin Miner 3": TechSpec.new(2, TechFlavour.BITCOIN, 1000),
+
     "Ethereum Miner": TechSpec.new(0, TechFlavour.ETHEREUM, 0),
     "Ethereum Miner 2": TechSpec.new(1, TechFlavour.ETHEREUM, 100),
+    "Ethereum Miner 3": TechSpec.new(2, TechFlavour.ETHEREUM, 1000),
+
     "Basic Router": TechSpec.new(0, TechFlavour.NETWORK, 0),
     "Transformer": TechSpec.new(0, TechFlavour.POWER, 0),
 }
