@@ -2,18 +2,18 @@ extends "res://Machines/Machine.gd"
 
 
 var tilemap = {
-    Vector2(0, 0): 8,
-    Vector2(1, 0): 9,
-    Vector2(2, 0): 9,
-    Vector2(0, 1): 12,
-    Vector2(1, 1): 13,
-    Vector2(2, 1): 13,
-    Vector2(0, 2): 10,
-    Vector2(1, 2): 11,
-    Vector2(2, 2): 11,
-    Vector2(0, 3): 10,
-    Vector2(1, 3): 11,
-    Vector2(2, 3): 11,
+    Vector2(0, 0): 24,
+    Vector2(1, 0): 25,
+    Vector2(2, 0): 26,
+    Vector2(0, 1): 40,
+    Vector2(1, 1): 41,
+    Vector2(2, 1): 42,
+    Vector2(0, 2): 48,
+    Vector2(1, 2): 49,
+    Vector2(2, 2): 50,
+    Vector2(0, 3): 27,
+    Vector2(1, 3): 28,
+    Vector2(2, 3): 29,
 }
 
 func _init():
