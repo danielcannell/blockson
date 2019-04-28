@@ -24,6 +24,8 @@ enum TechFlavour {
     NETWORK,
 }
 
+const TECH_FLAVOURS = [TechFlavour.BITCOIN, TechFlavour.ETHEREUM, TechFlavour.POWER, TechFlavour.NETWORK]
+
 const MACHINES = {
     "Bitcoin Miner": preload("res://Machines/BitcoinMiner.gd"),
     "Ethereum Miner": preload("res://Machines/EthereumMiner.gd"),
@@ -68,6 +70,14 @@ class Port:
         supplies[Wire.NETWORK] = network
         supplies[Wire.THREE_PHASE] = three_phase
 
+    func duplicate():
+        var p = Port.new(machine, supplies[Wire.ELECTRIC], supplies[Wire.NETWORK], supplies[Wire.THREE_PHASE])
+        p.heat = heat
+        p.electric_fanout = electric_fanout
+        p.network_fanout = network_fanout
+        p.three_phase_fanout = three_phase_fanout
+        return p
+
     func to_string():
         return "Port{Heat: %d, Electric: %d / %d, Network: %d / %d, 3Phase: %d / %d}" % [
             heat,
@@ -98,6 +108,15 @@ class TechState:
     func _init(progress, unlocked):
         self.progress = progress
         self.unlocked = unlocked
+
+    func is_complete():
+        return unlocked and progress >= 1.0
+
+    func is_buildable():
+        return unlocked and progress <= 0.0
+
+    func is_building():
+        return unlocked and progress > 0.0 and progress < 1.0
 
 
 # Pause in the debugger, or crash!

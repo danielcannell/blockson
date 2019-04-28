@@ -303,14 +303,12 @@ func get_net_from_port(ns, p, kind):
 
 
 func update_machines_working():
-    var ns = []
+    var allnets = []
     for kind in Globals.WIRE_KINDS:
-        ns += calculate_connected_ports(kind)
-    var ms = machines.duplicate()
+        allnets += calculate_connected_ports(kind)
 
-    print("NETS:")
-    for n in ns:
-        print(n.to_string())
+    var ns = allnets.duplicate()
+    var ms = machines.duplicate()
 
     # Set all machines as not working
     for machine in ms:
@@ -339,6 +337,9 @@ func update_machines_working():
                             p.machine.connected[kind] += 1
                 changes = true
 
+    print("NETS:")
+    for n in allnets:
+        print(n.to_string())
 
 func adjacent(p):
     return [
@@ -481,6 +482,7 @@ func wire_delete(coord):
         placement.close()
         complete_deleting()
         recompute_tilemaps()
+
 
 func update_delete_placement(coord):
     var placement = get_node("Placement")
