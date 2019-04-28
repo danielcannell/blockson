@@ -1,5 +1,7 @@
 extends Node
 
+var time = 0.0
+
 enum Direction {
     NORTH,
     SOUTH,

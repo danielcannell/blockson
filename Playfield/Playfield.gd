@@ -5,6 +5,7 @@ const Wire = preload("res://Machines/Wire.gd")
 const AirVent = preload("res://Machines/AirVent.gd")
 const ThreePhaseSocket = preload("res://Machines/ThreePhaseSocket.gd")
 const NetworkSocket = preload("res://Machines/NetworkSocket.gd")
+const StatusEffect = preload("res://Machines/StatusEffect.tscn")
 
 signal end_placing
 signal mining_result
@@ -230,6 +231,11 @@ func finish_placing(coord):
                     var p = coord + offset
                     tiles[p] = placing
 
+            var se = StatusEffect.instance()
+            se.machine = placing
+            se.position = (placing.get_center_pos() * 32) + tilemap.position
+            placing.status_effect = se
+            add_child(se)
             machines.append(placing)
             success = true
 
@@ -301,6 +307,7 @@ func tick():
 func check_all_supplies(kind):
     # Mark all machines as OK
     for machine in machines:
+        machine.checked = true
         machine.working[kind] = true
         machine.connected[kind] = 0
 
@@ -400,3 +407,7 @@ func calculate_nets(kind):
         ns.push_back(net)
 
     return ns
+
+
+func _process(delta):
+    Globals.time += delta

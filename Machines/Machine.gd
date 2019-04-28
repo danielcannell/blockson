@@ -1,6 +1,11 @@
 extends Node
 
 
+# Node which controls rendering of status effects
+var status_effect = null
+var checked = false
+
+
 # Set based on whether all supplies are satisfied
 var working = {
     Globals.Wire.ELECTRIC: false,
@@ -44,6 +49,10 @@ func cost():
 
 func tile(pos, n, s, e, w):
     Globals.throw("ERROR: tile() not implemented")
+
+
+func get_center_pos():
+    return pos + size() / 2
 
 
 func all_working():
