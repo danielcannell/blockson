@@ -30,7 +30,7 @@ func on_tech_update(tech_state):
         if not tech in btn_handles:
             var spec = Globals.TECH_SPECS[tech]
             var btn = TechButton.instance()
-            btn.get_node("Label").text = "%s\n%s thoughts\nLevel %s" % [tech, spec.thoughts, spec.level]
+            btn.get_node("Label").text = "%s\nUnlock: %s thoughts\nLevel: %s" % [tech, spec.thoughts, spec.level]
             btn_handles[tech] = btn
             col_handles[spec.flavour].add_child(btn)
             btn_handles[tech].get_node("Wipe").set_percent(0)
