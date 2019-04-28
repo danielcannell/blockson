@@ -4,10 +4,10 @@ extends "res://Machines/Machine.gd"
 func _init():
     var p = Globals.Port.new(self, 0, 0, 1000000)
     p.three_phase_fanout = 2
-    ports[Vector3(0, 0, Globals.Direction.NORTH)] = p
-    ports[Vector3(0, 0, Globals.Direction.SOUTH)] = p
-    ports[Vector3(0, 0, Globals.Direction.EAST)] = p
-    ports[Vector3(0, 0, Globals.Direction.WEST)] = p
+    ports[Vector3(0, 0, Globals.Direction.NORTH)] = p.duplicate()
+    ports[Vector3(0, 0, Globals.Direction.SOUTH)] = p.duplicate()
+    ports[Vector3(0, 0, Globals.Direction.EAST)] = p.duplicate()
+    ports[Vector3(0, 0, Globals.Direction.WEST)] = p.duplicate()
 
 
 func size():
