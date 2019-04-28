@@ -193,7 +193,6 @@ func finish_placing(coord):
     placement.set_pos(null)
     placement.set_size(null)
     emit_signal("end_placing", success)
-    emit_signal("balance_changed", 500)
 
     recompute_tilemaps()
 
