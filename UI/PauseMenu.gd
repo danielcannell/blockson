@@ -14,7 +14,7 @@ func _input(event):
 func set_paused(state):
     if get_tree().is_paused() and !visible:
         # We are paused for another reason (e.g. tutorial).
-        # Ignore for now. 
+        # Ignore for now.
         return
     get_tree().paused = state
     visible = state

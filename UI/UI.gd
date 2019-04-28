@@ -23,7 +23,7 @@ func _ready():
 
     for wire in Globals.WIRES:
         shop_list.make_wire_item(wire, buttongroup)
-        
+
     get_node("CanvasLayer/Panel/VBoxContainer/TrashContainer/Button").set_button_group(buttongroup)
 
     emit_signal("tutorial_event", Globals.TutorialEvents.UI_READY)
@@ -61,7 +61,7 @@ func _on_shopList_item_request(type):
 
 
 func on_delete_button_pressed():
-   emit_signal("enter_delete_mode") 
+   emit_signal("enter_delete_mode")
 
 
 func on_playfield_delete_completed():

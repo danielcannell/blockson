@@ -28,7 +28,6 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="BalanceContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
-editor/display_folded = true
 margin_right = 180.0
 margin_bottom = 14.0
 
@@ -121,7 +120,6 @@ margin_top = 158.0
 margin_right = 180.0
 margin_bottom = 558.0
 rect_min_size = Vector2( 180, 400 )
-rect_clip_content = false
 focus_mode = 1
 size_flags_vertical = 3
 theme = SubResource( 1 )
@@ -129,7 +127,7 @@ scroll_horizontal_enabled = false
 
 [node name="ShopList" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/ScrollContainer"]
 margin_right = 180.0
-margin_bottom = 488.0
+margin_bottom = 400.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3

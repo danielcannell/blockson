@@ -48,7 +48,7 @@ func grow_wire(wire_end):
         wire_end.x = wire_origin.x
     else:
         wire_end.y = wire_origin.y
-    
+
     self.wire_end = wire_end
 
     var x = order_vecs(wire_origin, wire_end)
