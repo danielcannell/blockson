@@ -2,6 +2,10 @@ extends Node2D
 
 const Wire = preload("res://Machines/Wire.gd")
 
+const AirVent = preload("res://Machines/AirVent.gd")
+const ThreePhaseSocket = preload("res://Machines/ThreePhaseSocket.gd")
+const NetworkSocket = preload("res://Machines/NetworkSocket.gd")
+
 signal end_placing
 signal mining_result
 signal tutorial_event
@@ -26,6 +30,8 @@ var tick_timer = Timer.new()
 
 
 func _ready():
+    randomize()
+
     var tx = tilemap.get_cell_size().x
     var ty = tilemap.get_cell_size().y
     var mapsize = Vector2(Config.MAP_WIDTH * tx, Config.MAP_HEIGHT * ty)
@@ -44,6 +50,45 @@ func _ready():
     tick_timer.start()
 
     self.add_child(tick_timer)
+
+    generate_map_edges()
+    recompute_tilemaps()
+
+
+func _get_random_edge_point():
+    match randi() % 4:
+        0:
+            return Vector2(-1, randi() % Config.MAP_HEIGHT)
+        1:
+            return Vector2(Config.MAP_WIDTH, randi() % Config.MAP_HEIGHT)
+        2:
+            return Vector2(randi() % Config.MAP_WIDTH, -1)
+        3:
+            return Vector2(randi() % Config.MAP_WIDTH, Config.MAP_HEIGHT)
+
+
+func _get_random_unused_edge_point():
+    for i in range(100):
+        var p = _get_random_edge_point()
+        if not tiles.has(p):
+            return p
+    Globals.throw("Failed to generate an unused edge point after 100 attempts")
+
+
+func _generate_external_port(type):
+    var p = _get_random_unused_edge_point()
+    var m = type.new()
+    m.pos = p
+    tiles[p] = m
+
+
+func generate_map_edges():
+    for i in range(5):
+        _generate_external_port(AirVent)
+    for i in range(3):
+        _generate_external_port(NetworkSocket)
+    for i in range (2):
+        _generate_external_port(ThreePhaseSocket)
 
 
 func get_tile_coord(viewport_pos):
@@ -199,14 +244,12 @@ func finish_placing(coord):
 
 func get_machine(x, y):
     var p = Vector2(x, y)
-    if x < 0 or x >= Config.MAP_WIDTH or y < 0 or y >= Config.MAP_HEIGHT:
-        return null
     return tiles.get(p)
 
 
 func recompute_tilemaps():
-    for x in range(Config.MAP_WIDTH):
-        for y in range(Config.MAP_HEIGHT):
+    for x in range(-1, Config.MAP_WIDTH+1):
+        for y in range(-1, Config.MAP_HEIGHT+1):
             var t = get_machine(x, y)
             var tids = [-1, -1, -1, -1, -1]
             if t != null:
@@ -222,6 +265,11 @@ func recompute_tilemaps():
                     tids[4] = wire_ids[3]
                 else:
                     tids[0] = t.tile(Vector2(x, y) - t.pos, n, s, e, w)
+
+            # Map edges should have blank walls
+            if (x == -1 or y == -1 or x == Config.MAP_WIDTH or y == Config.MAP_HEIGHT) and tids[0] == -1:
+                tids[0] = 3
+
             tilemap.set_cell(x, y, tids[0])
             cabletray_tilemap.set_cell(x, y, tids[1])
             wiredata_tilemap.set_cell(x, y, tids[2])
