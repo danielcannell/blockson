@@ -94,3 +94,7 @@ func update_shop_list(tech_state):
 
 func on_test_button_pressed():
     emit_signal("ui_tech_request", "Bitcoin Miner 2")
+
+
+func on_techtreepanel_button_clicked(name):
+    emit_signal("ui_tech_request", name)
