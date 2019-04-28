@@ -3,6 +3,7 @@ extends WindowDialog
 
 func _ready():
     get_node("VBoxContainer/Button").connect("pressed", self, "toggle_paused")
+    get_close_button().connect("pressed", self, "set_paused", [false])
 
 
 func _input(event):
