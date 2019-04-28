@@ -23,3 +23,7 @@ func demand():
 func max_fanout():
     # todo find lowest non-negative fanout of any port
     return 9999999
+
+
+func to_string():
+    return "Net{kind=%d, ports=%s, supply=%d}" % [kind, str(ports), supply]

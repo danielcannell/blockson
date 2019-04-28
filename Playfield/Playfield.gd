@@ -308,6 +308,10 @@ func update_machines_working():
         ns += calculate_connected_ports(kind)
     var ms = machines.duplicate()
 
+    print("NETS:")
+    for n in ns:
+        print(n.to_string())
+
     # Set all machines as not working
     for machine in ms:
         for kind in Globals.WIRE_KINDS:
@@ -471,6 +475,7 @@ func wire_delete(coord):
             for j in range(x[0].y, x[1].y + 1):
                 var p = Vector2(i, j)
                 if p in tiles and tiles[p].is_wire():
+                    wires.erase(tiles[p])
                     tiles.erase(p)
 
         placement.close()
