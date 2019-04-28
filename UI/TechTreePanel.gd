@@ -4,6 +4,9 @@ extends PopupPanel
 const TechButton = preload("res://UI/TechButton.tscn")
 
 
+signal button_clicked
+
+
 var btn_handles = {}
 var col_handles
 
@@ -17,8 +20,8 @@ func _ready():
     }
 
 
-func on_button_clicked():
-    pass
+func on_research_button_clicked(name):
+    emit_signal("button_clicked", name)
 
 
 func on_button_toggled(visible):
@@ -34,6 +37,7 @@ func on_tech_update(tech_state):
             btn_handles[tech] = btn
             col_handles[spec.flavour].add_child(btn)
             btn_handles[tech].get_node("Wipe").set_percent(0)
+            btn_handles[tech].get_node("Button").connect("pressed", self, "on_research_button_clicked", [tech])
 
         var state = tech_state[tech]
 
@@ -42,5 +46,5 @@ func on_tech_update(tech_state):
         else:
             btn_handles[tech].get_node("Wipe").set_percent(0)
 
-        btn_handles[tech].get_node("TextureButton").disabled = not state.is_buildable()
+        btn_handles[tech].get_node("Button").disabled = not state.is_buildable()
 
