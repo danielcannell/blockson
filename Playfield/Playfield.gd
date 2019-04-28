@@ -281,17 +281,20 @@ func on_ui_request_placement(name):
 
 
 func tick():
-    print("Tick")
-
     for kind in Globals.WIRE_KINDS:
         check_all_supplies(kind)
+
+    var thoughts_per_sec = 1
+    var bitcoin_per_sec = 0
 
     print("**********")
     for machine in machines:
         print(machine, " ", machine.working)
 
-    var thoughts_per_sec = 1
-    var bitcoin_per_sec = 1
+        if machine.all_working():
+            thoughts_per_sec += machine.thoughts_per_sec
+            bitcoin_per_sec += machine.bitcoint_per_sec
+
     emit_signal("mining_result", thoughts_per_sec, bitcoin_per_sec)
 
 

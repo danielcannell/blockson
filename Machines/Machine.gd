@@ -20,7 +20,13 @@ var connected = {
 var pos = Vector2()
 
 
+# Map from Vector3(x, y, dir) -> Port
 var ports = {}
+
+
+# Earning rates
+var bitcoint_per_sec = 0
+var thoughts_per_sec = 0
 
 
 func is_wire():
@@ -38,6 +44,13 @@ func cost():
 
 func tile(pos, n, s, e, w):
     Globals.throw("ERROR: tile() not implemented")
+
+
+func all_working():
+    for w in working.values():
+        if not w:
+            return false
+    return true
 
 
 func get_ports_to_tile(x, y):
