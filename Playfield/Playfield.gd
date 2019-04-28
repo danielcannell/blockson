@@ -5,6 +5,7 @@ const Wire = preload("res://Machines/Wire.gd")
 const AirVent = preload("res://Machines/AirVent.gd")
 const ThreePhaseSocket = preload("res://Machines/ThreePhaseSocket.gd")
 const NetworkSocket = preload("res://Machines/NetworkSocket.gd")
+const Net = preload("res://Playfield/Net.gd")
 const StatusEffect = preload("res://Machines/StatusEffect.tscn")
 
 signal end_placing
@@ -82,6 +83,7 @@ func _generate_external_port(type):
     var m = type.new()
     m.pos = p
     tiles[p] = m
+    machines.push_back(m)
 
 
 func generate_map_edges():
@@ -277,58 +279,61 @@ func on_ui_request_placement(name):
 
 
 func tick():
-    for kind in Globals.WIRE_KINDS:
-        check_all_supplies(kind)
+    update_machines_working()
 
     var thoughts_per_sec = 1
     var bitcoin_per_sec = 0
 
     print("**********")
     for machine in machines:
-        print(machine, " ", machine.working)
+        machine.checked = true
 
-        if machine.all_working():
+        if machine.is_working():
             thoughts_per_sec += machine.thoughts_per_sec
             bitcoin_per_sec += machine.bitcoin_per_sec
 
     emit_signal("mining_result", thoughts_per_sec, bitcoin_per_sec)
 
 
-func check_all_supplies(kind):
-    # Mark all machines as OK
-    for machine in machines:
-        machine.checked = true
-        machine.working[kind] = true
-        machine.connected[kind] = 0
-
-    var connected_ports = calculate_connected_ports(kind)
-
-    for ports in connected_ports:
-        update_downstream_connections(ports, kind)
-
-        if not check_port_supplies(ports, kind):
-            # Mark all these ports as bad
-            for p in ports:
-                p.machine.working[kind] = false
-
-    for machine in machines:
-        if machine.connected[kind] != machine.num_downstream_ports(kind):
-            machine.working[kind] = false
+func get_net_from_port(ns, p, kind):
+    for n in ns:
+        if n.kind != kind: continue
+        if n.ports.has(p):
+            return n
 
 
-func update_downstream_connections(ports, kind):
-    for p in ports:
-        if p.supplies[kind] < 0:
-            p.machine.connected[kind] += 1
+func update_machines_working():
+    var ns = []
+    for kind in Globals.WIRE_KINDS:
+        ns += calculate_connected_ports(kind)
+    var ms = machines.duplicate()
 
+    # Set all machines as not working
+    for machine in ms:
+        for kind in Globals.WIRE_KINDS:
+            machine.connected[kind] = 0
 
-func check_port_supplies(ports, kind):
-    var supply = 0
-
-    for p in ports:
-        supply += p.supplies[kind]
-
-    return supply > 0
+    # Repeat until nothing changes
+    var changes = true
+    while changes:
+        changes = false
+        for machine in ms.duplicate():
+            if machine.is_working():
+                ms.erase(machine)
+                for kind in Globals.WIRE_KINDS:
+                    for p in machine.get_source_ports(kind):
+                        var net = get_net_from_port(ns, p, kind)
+                        if net != null:
+                            net.supply += p.supplies[kind]
+                changes = true
+        for net in ns.duplicate():
+            if net.is_working():
+                ns.erase(net)
+                for p in net.ports:
+                    for kind in Globals.WIRE_KINDS:
+                        if p.supplies[kind] < 0:
+                            p.machine.connected[kind] += 1
+                changes = true
 
 
 func adjacent(p):
@@ -343,7 +348,7 @@ func adjacent(p):
 func calculate_connected_ports(kind):
     var ps = []
     for net in calculate_nets(kind):
-        var ms = []
+        var ms = Net.new(kind)
 
         for w in net:
             for pos in adjacent(w):
@@ -352,7 +357,7 @@ func calculate_connected_ports(kind):
 
                 var machine = tiles[pos]
                 if machine.accepts_wire_from_tile(w.x, w.y, kind):
-                    ms.push_back(machine.get_ports_to_tile(w.x, w.y))
+                    ms.ports.push_back(machine.get_ports_to_tile(w.x, w.y))
 
         ps.push_back(ms)
 
