@@ -156,6 +156,15 @@ class TechState:
         return unlocked and progress > 0.0 and progress < 1.0
 
 
+func get_kind_name(kind):
+    if kind == Wire.ELECTRIC:
+        return "Power"
+    elif kind == Wire.NETWORK:
+        return "Network"
+    elif kind == Wire.THREE_PHASE:
+        return "3 Phase"
+
+
 # Pause in the debugger, or crash!
 func throw(msg):
     print(msg)
