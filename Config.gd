@@ -45,7 +45,7 @@ func load_with_map(width: int, height: int):
     MAP_HEIGHT = height
     get_tree().change_scene("res://Main.tscn")
     get_tree().paused = false
-    
+
 
 func next_level():
     level = level + 1
