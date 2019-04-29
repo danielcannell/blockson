@@ -7,7 +7,12 @@ var handlers = {
     Globals.TutorialEvents.PLAYFIELD_READY: null,
     Globals.TutorialEvents.NET_FANOUT_TOO_HIGH: "handle_net_fanout_too_high",
     Globals.TutorialEvents.NET_OVERLOADED: "handle_net_overloaded",
+    Globals.TutorialEvents.TRANSFORMER_PLACED: "handle_transformer_placed",
+    Globals.TutorialEvents.BITCOIN_MINER_PLACED: "handle_bitcoin_miner_placed",
+    Globals.TutorialEvents.ETHEREUM_MINER_PLACED: "handle_ethereum_miner_placed",
+    
 }
+var popup_pending = null
 
 
 func _ready():
@@ -35,8 +40,47 @@ func handle_ui_ready():
     instructions.text = """Hi, my name is Blockson. I am an AI running on the blockchain.
 My thoughts are recorded in a Merkle Tree, and a cryptocurrency is my life.
 
-I need your help to improve my datacentre so I can keep the price of Bitcoin high.
-That way people will keep mining and I get to stay alive."""
+I need your help to improve my datacentre. That way I can get thinking faster and faster.
+Might take over the world or something when I get smart enough, idk.
+
+Press \"P\" or \"Pause\" to pause at any time."""
+    popup_pending = """We'll need to power some units, so use the shop to buy a transformer.
+Place it somewhere in the middle of the data centre.
+    """
+    popup.visible = true
+    
+    
+func handle_transformer_placed():
+    get_tree().paused = true
+    instructions.text = """Thanks! Things that are missing a resource flash with a lightning bolt.
+
+Your transformer requires some three-phase supply. Connect the top of the transformer to a red port on the wall using some three-phase cable.
+Then try placing a Bitcoin miner. We'll need some money if we're going to keep this up!
+"""
+    popup.visible = true
+
+
+func handle_bitcoin_miner_placed():
+    get_tree().paused = true
+    instructions.text = """Great! You'll now need to hook up some yellow electric cable from the transformer to the port on the miner.
+It will also need blue network cable as well - I'm sure you will be able to work it out.
+"""
+    popup.visible = true
+    
+    
+func handle_ethereum_miner_placed():
+    get_tree().paused = true
+    instructions.text = """Amazing!!! Don't forget to use the tech tree to unlock new, faster miners!
+"""
+    popup.visible = true
+    
+    
+func handle_earning_money():
+    get_tree().paused = true
+    instructions.text = """Nice, now we're getting somewhere! We can get better tech with the Tech Tree, but we'll need some Ethereum Miners to help me unlock them...
+    
+    You know what to do!
+"""
     popup.visible = true
 
 
@@ -70,5 +114,13 @@ You can connect the output of several transformers together to provide more powe
 
 
 func handle_popup_ok_pressed():
+    if popup_pending:
+        instructions.text = popup_pending
+        popup_pending = null
+        return
     get_tree().paused = false
     get_node("Popup").visible = false
+
+
+func on_checkbox_toggled(button_pressed):
+    Config.tutorial_active = button_pressed
