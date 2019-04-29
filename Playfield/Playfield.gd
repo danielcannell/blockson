@@ -24,6 +24,7 @@ onready var heat_sim = find_node("HeatSim")
 var machines = []
 var wires = []
 var tiles = {}
+var allnets = []
 
 var placing_wire = false
 var placing = null
@@ -117,6 +118,16 @@ func _unhandled_input(event):
             update_delete_placement(get_tile_coord(event.position))
         else:
             update_placing(get_tile_coord(event.position))
+
+        var m = tiles.get(get_tile_coord(event.position))
+        if m != null:
+            if m.is_wire():
+                print("Wire:")
+                for n in get_nets_from_wire(m):
+                    print(n.to_string())
+            else:
+                print("Machine")
+                print(m.to_string())
 
 
 func begin_placing(name):
@@ -303,8 +314,19 @@ func get_net_from_port(ns, p, kind):
             return n
 
 
+func get_nets_from_wire(w):
+    var ns = []
+    for n in allnets:
+        if n.wires.has(w):
+            ns.push_back(n)
+    return ns
+
+
 func update_machines_working():
-    var allnets = []
+    for n in allnets:
+        # This is apparently required!
+        n.free()
+    allnets = []
     for kind in Globals.WIRE_KINDS:
         allnets += calculate_connected_ports(kind)
 
@@ -341,10 +363,6 @@ func update_machines_working():
                         p.machine.connected[net.kind] += 1
                 changes = true
 
-    # This is apparently required!
-    for n in allnets:
-        n.free()
-
 
 func adjacent(p):
     return [
@@ -358,18 +376,16 @@ func adjacent(p):
 func calculate_connected_ports(kind):
     var ps = []
     for net in calculate_nets(kind):
-        var ms = Net.new(kind)
-
-        for w in net:
-            for pos in adjacent(w):
+        for w in net.wires:
+            for pos in adjacent(w.pos):
                 if not pos in tiles or tiles[pos].is_wire():
                     continue
 
                 var machine = tiles[pos]
-                if machine.accepts_wire_from_tile(w.x, w.y, kind):
-                    ms.ports.push_back(machine.get_ports_to_tile(w.x, w.y))
+                if machine.accepts_wire_from_tile(w.pos.x, w.pos.y, kind):
+                    net.ports.push_back(machine.get_ports_to_tile(w.pos.x, w.pos.y))
 
-        ps.push_back(ms)
+        ps.push_back(net)
 
     return ps
 
@@ -386,12 +402,12 @@ func calculate_nets(kind):
 
         w.mark = true
 
-        var net = []
+        var net = Net.new(kind)
         var todo = [w.pos]
 
         while todo:
             var current = todo.pop_back()
-            net.push_back(current)
+            net.wires.push_back(tiles[current])
 
             for a in adjacent(current):
                 if not a in tiles or not tiles[a].is_wire():
