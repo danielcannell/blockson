@@ -56,7 +56,7 @@ func on_playfield_end_placing(placed):
 
 func on_playfield_tooltip(message):
     if message != null:
-        tooltip_message.text = message
+        tooltip_message.bbcode_text = message
     tooltip.visible = message != null
 
 
