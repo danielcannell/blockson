@@ -8,7 +8,7 @@ signal tutorial_event
 
 
 var income_per_sec = 0.0
-var thoughts_per_sec = 1.0
+var thoughts_per_sec = Config.base_thoughts_per_second
 
 var btc_balance = 0
 
