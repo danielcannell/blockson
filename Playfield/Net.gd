@@ -37,5 +37,26 @@ func max_fanout():
     return f
 
 
+func get_status_string():
+    var overloaded_str = ""
+    if kind == Globals.Wire.NETWORK:
+        if fanout_too_high():
+            overloaded_str = "(TOO MANY DEVICES) "
+        return "%s: %s%d ports connected" % [
+            Globals.get_kind_name(kind),
+            overloaded_str,
+            ports.size()
+        ]
+    else:
+        if is_overloaded():
+            overloaded_str = "(OVERLOADED) "
+        return "%s: %s%d ports connected, supply: %d, demand: %d" % [
+            Globals.get_kind_name(kind),
+            overloaded_str,
+            ports.size(),
+            supply,
+            demand()
+        ]
+
 func to_string():
     return "Net{kind=%d, ports=%s, supply=%d, #wires=%d}" % [kind, str(ports), supply, wires.size()]

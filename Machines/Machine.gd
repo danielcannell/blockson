@@ -116,6 +116,22 @@ func is_working():
     return true
 
 
+func get_status_string():
+    var s = ""
+    var ok = true
+    for kind in Globals.WIRE_KINDS:
+        var need = num_sink_ports(kind)
+        if need == 0: continue
+        var has = connected[kind]
+        s += "%s: %d/%d, " % [Globals.get_kind_name(kind), has, need]
+    s = s.substr(0, s.length() - 2)
+
+    if not is_working():
+        s = "NOT WORKING: " + s
+
+    return s
+
+
 func to_string():
     return "Machine{ce=%d/%d, cn=%d/%d, ct=%d/%d, w=%s}" % [
         connected[Globals.Wire.ELECTRIC],

@@ -121,14 +121,16 @@ func _unhandled_input(event):
             update_placing(get_tile_coord(event.position))
 
         var m = tiles.get(get_tile_coord(event.position))
+        var status_text = null
         if m != null:
             if m.is_wire():
-                print("Wire:")
+                status_text = ""
                 for n in get_nets_from_wire(m):
-                    print(n.to_string())
+                    status_text += n.get_status_string() + "\n"
+                status_text = status_text.substr(0, status_text.length() - 1)
             else:
-                print("Machine")
-                print(m.to_string())
+                status_text = m.get_status_string()
+        emit_signal("tile_tooltip", status_text)
 
 
 func begin_placing(name):
