@@ -32,8 +32,10 @@ func on_playfield_end_placing(placed):
 
 
 func format_thoughts(thoughts_per_sec):
+    if thoughts_per_sec > 1e16:
+        return "%.1f" % (thoughts_per_sec / 1e16) + "PHz"
     if thoughts_per_sec > 1e12:
-        return "%.1f" % (thoughts_per_sec / 1e12) + "PHz"
+        return "%.1f" % (thoughts_per_sec / 1e12) + "THz"
     if thoughts_per_sec > 1e9:
         return "%.1f" % (thoughts_per_sec / 1e9) + "GHz"
     if thoughts_per_sec > 1e6:
@@ -98,3 +100,22 @@ func on_test_button_pressed():
 
 func on_techtreepanel_button_clicked(name):
     emit_signal("ui_tech_request", name)
+
+
+func on_economy_level_completed():
+    get_node("CanvasLayer/LevelCompleteDialog").visible = true
+    get_tree().paused = true
+
+
+func on_next_level_requested():
+    Config.next_level()
+
+
+func on_economy_player_win():
+    get_node("CanvasLayer/GameCompleteDialog").visible = true
+    get_tree().paused = true
+
+
+func on_restart_requested():
+    Config.level = -1
+    Config.next_level()

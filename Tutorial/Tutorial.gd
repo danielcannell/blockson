@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-var occured = []
 onready var popup = get_node("Popup")
 onready var instructions = get_node("Popup/Panel/VBoxContainer/RichTextLabel")
 var handlers = {
@@ -16,10 +15,10 @@ func _ready():
 
 
 func handle_tutorial_event(ev):
-    if ev in occured:
+    if ev in Config.tutorial_occurred:
         return
 
-    occured.append(ev)
+    Config.tutorial_occurred.append(ev)
 
     if !Config.tutorial_active:
         return
