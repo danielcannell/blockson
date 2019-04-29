@@ -331,6 +331,10 @@ func update_machines_working():
                             net.supply += p.supplies[kind]
                 changes = true
         for net in ns.duplicate():
+            if net.fanout_too_high():
+                emit_signal("tutorial_event", Globals.TutorialEvents.NET_FANOUT_TOO_HIGH)
+            if net.is_overloaded() and net.supply > 0:
+                emit_signal("tutorial_event", Globals.TutorialEvents.NET_OVERLOADED)
             if net.is_working():
                 ns.erase(net)
                 for p in net.ports:

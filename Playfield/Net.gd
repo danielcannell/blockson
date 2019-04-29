@@ -9,7 +9,15 @@ func _init(kind):
 
 
 func is_working():
-    return supply >= demand() and ports.size() <= max_fanout()
+    return not is_overloaded() and not fanout_too_high()
+
+
+func is_overloaded():
+    return supply < demand()
+
+
+func fanout_too_high():
+    return ports.size() > max_fanout()
 
 
 func demand():

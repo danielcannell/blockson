@@ -71,6 +71,8 @@ const WIRES = {
 enum TutorialEvents {
     PLAYFIELD_READY,
     UI_READY,
+    NET_FANOUT_TOO_HIGH,
+    NET_OVERLOADED,
 }
 
 class Port:
