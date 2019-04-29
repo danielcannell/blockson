@@ -1,22 +1,25 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://UI/UI.gd" type="Script" id=1]
 [ext_resource path="res://art/trash_can.png" type="Texture" id=2]
 [ext_resource path="res://UI/ShopList.gd" type="Script" id=3]
 [ext_resource path="res://UI/PauseMenu.gd" type="Script" id=4]
-[ext_resource path="res://UI/TechTreePanel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://art/DejaVuSansMono-Bold.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://art/DejaVuSansMono.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://art/status_electric.png" type="Texture" id=5]
+[ext_resource path="res://art/status_network.png" type="Texture" id=6]
+[ext_resource path="res://art/status_threephase.png" type="Texture" id=7]
+[ext_resource path="res://UI/TechTreePanel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://art/DejaVuSansMono-Bold.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://art/DejaVuSansMono.ttf" type="DynamicFontData" id=10]
 
 [sub_resource type="Theme" id=1]
 
 [sub_resource type="DynamicFont" id=2]
 size = 14
-font_data = ExtResource( 6 )
+font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 14
-font_data = ExtResource( 7 )
+font_data = ExtResource( 10 )
 
 [node name="Root" type="Node2D"]
 script = ExtResource( 1 )
@@ -159,20 +162,21 @@ margin_bottom = 346.342
 
 [node name="PauseMenu" type="WindowDialog" parent="CanvasLayer"]
 pause_mode = 2
+visible = true
 margin_left = 327.0
 margin_top = 207.0
 margin_right = 610.0
-margin_bottom = 315.0
+margin_bottom = 389.0
 window_title = "Pause Menu"
 script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
+margin_left = 11.0
+margin_top = 9.0
+margin_right = -9.0
+margin_bottom = -11.0
 
 [node name="Button" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
 margin_right = 263.0
@@ -186,11 +190,76 @@ margin_bottom = 48.0
 pressed = true
 text = "Enable Tutorial"
 
-[node name="TechTreePanel" parent="CanvasLayer" instance=ExtResource( 5 )]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+margin_top = 52.0
+margin_right = 263.0
+margin_bottom = 56.0
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+margin_top = 60.0
+margin_right = 263.0
+margin_bottom = 74.0
+text = "Legend"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+margin_top = 78.0
+margin_right = 263.0
+margin_bottom = 102.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PauseMenu/VBoxContainer/HBoxContainer"]
+margin_right = 24.0
+margin_bottom = 24.0
+texture = ExtResource( 5 )
+
+[node name="Label2" type="Label" parent="CanvasLayer/PauseMenu/VBoxContainer/HBoxContainer"]
+margin_left = 28.0
+margin_top = 5.0
+margin_right = 95.0
+margin_bottom = 19.0
+text = "Electricity "
+align = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+margin_top = 106.0
+margin_right = 263.0
+margin_bottom = 130.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PauseMenu/VBoxContainer/HBoxContainer2"]
+margin_right = 24.0
+margin_bottom = 24.0
+texture = ExtResource( 6 )
+
+[node name="Label3" type="Label" parent="CanvasLayer/PauseMenu/VBoxContainer/HBoxContainer2"]
+margin_left = 28.0
+margin_top = 5.0
+margin_right = 81.0
+margin_bottom = 19.0
+text = "Network"
+align = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+margin_top = 134.0
+margin_right = 263.0
+margin_bottom = 158.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PauseMenu/VBoxContainer/HBoxContainer3"]
+margin_right = 24.0
+margin_bottom = 24.0
+texture = ExtResource( 7 )
+
+[node name="Label4" type="Label" parent="CanvasLayer/PauseMenu/VBoxContainer/HBoxContainer3"]
+margin_left = 28.0
+margin_top = 5.0
+margin_right = 150.0
+margin_bottom = 19.0
+text = "Three-Phase Power"
+align = 1
+
+[node name="TechTreePanel" parent="CanvasLayer" instance=ExtResource( 8 )]
 
 [node name="LevelCompleteDialog" type="PopupDialog" parent="CanvasLayer"]
 pause_mode = 2
-visible = true
 margin_left = 390.083
 margin_top = 221.71
 margin_right = 589.083

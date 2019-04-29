@@ -39,9 +39,9 @@ func handle_tutorial_event(ev):
 
 func handle_ui_ready():
     get_tree().paused = true
-    instructions.bbcode_text = """Hi, my name is [b]Blockson[/b]. I am an AI running on the blockchain.
+    instructions.bbcode_text = """Hi, my name is [b]Blockson[/b]. I am an AI running on the blockchain. My thoughts are recorded in a Merkle Tree, and a cryptocurrency is my life.
     
-My thoughts are recorded in a Merkle Tree, and a cryptocurrency is my life. I need your help to improve my datacentre. That way I can get thinking faster and faster. Might take over the world or something when I get smart enough, idk.
+I need your help to improve my datacentre. That way I can get thinking faster and faster. Might take over the world or something when I get smart enough, idk.
 
 Press \"P\" or \"Pause\" to pause at any time."""
     popup_pending = """We'll need to power some units, so [u]use the shop to buy a transformer[/u].
