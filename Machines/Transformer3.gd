@@ -9,10 +9,10 @@ var tilemap = {
 }
 
 func _init():
-    ports[Vector3(0, 0, Globals.Direction.WEST)] = Globals.Port.new(self, 0, 0, -2000, 0, 0, 0)
-    ports[Vector3(0, 1, Globals.Direction.WEST)] = Globals.Port.new(self, 0, 0, -2000, 0, 0, 0)
-    ports[Vector3(1, 0, Globals.Direction.EAST)] = Globals.Port.new(self, 2000, 0, 0, 0, 0, 0)
-    ports[Vector3(1, 1, Globals.Direction.EAST)] = Globals.Port.new(self, 2000, 0, 0, 0, 0, 0)
+    ports[Vector3(0, 0, Globals.Direction.WEST)] = Globals.Port.new(self, 0, 0, -1000, 0, 0, 0)
+    ports[Vector3(0, 1, Globals.Direction.WEST)] = Globals.Port.new(self, 0, 0, -1000, 0, 0, 0)
+    ports[Vector3(1, 0, Globals.Direction.EAST)] = Globals.Port.new(self, 1000, 0, 0, 0, 0, 0)
+    ports[Vector3(1, 1, Globals.Direction.EAST)] = Globals.Port.new(self, 1000, 0, 0, 0, 0, 0)
 
 
 func size():

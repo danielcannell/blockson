@@ -84,8 +84,8 @@ func on_economy_balance_changed(bitcoin_balance, thoughts_per_sec):
     think_rate_label.set_text(format_thoughts(thoughts_per_sec))
     shop_list.update_balance(balance)
     update_progress_bar(thoughts_per_sec)
-    
-    
+
+
 func update_progress_bar(thoughts_per_sec):
     var bar = get_node("CanvasLayer/Panel/VBoxContainer/ProgressBar")
     var val = 100 * log(thoughts_per_sec) / log(think_target)
