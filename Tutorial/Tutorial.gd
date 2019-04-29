@@ -40,7 +40,7 @@ func handle_tutorial_event(ev):
 func handle_ui_ready():
     get_tree().paused = true
     instructions.bbcode_text = """Hi, my name is [b]Blockson[/b]. I am an AI running on the blockchain.
-    
+
 My thoughts are recorded in a Merkle Tree, and a cryptocurrency is my life. I need your help to improve my datacentre. That way I can get thinking faster and faster. Might take over the world or something when I get smart enough, idk.
 
 Press \"P\" or \"Pause\" to pause at any time."""
@@ -49,8 +49,8 @@ Press \"P\" or \"Pause\" to pause at any time."""
 Place it somewhere in the middle of the data centre.
     """
     popup.visible = true
-    
-    
+
+
 func handle_transformer_placed():
     get_tree().paused = true
     instructions.bbcode_text = """Thanks! Things that are missing a resource flash with a lightning bolt.
@@ -72,32 +72,32 @@ func handle_transformer_powered():
 func handle_ethereum_miner_placed():
     get_tree().paused = true
     instructions.bbcode_text = """Thank you so much! Now you'll need to give it network and power, just like the Bitcoin miner.
-    
+
 """
     popup.visible = true
-    
+
 
 
 func handle_bitcoin_miner_placed():
     get_tree().paused = true
     instructions.bbcode_text = """Great! You'll now need to [u]hook up some yellow electric cable from the transformer to the port on the miner[/u].
-    
+
 It will also need blue network cable as well - I'm sure you will be able to work it out.
 """
     popup.visible = true
-    
-    
+
+
 func handle_thinking_faster():
     get_tree().paused = true
     instructions.bbcode_text = """[b]Amazing!!![/b] Don't forget to use the tech tree to unlock new, faster miners!
 """
     popup.visible = true
-    
-    
+
+
 func handle_earning_money():
     get_tree().paused = true
     instructions.bbcode_text = """Nice, now we're getting somewhere! We can get better tech with the Tech Tree, but [u]we'll need some Ethereum Miners[/u] to help me unlock them...
-    
+
 You know what to do!
 """
     popup.visible = true
@@ -113,13 +113,10 @@ func handle_net_fanout_too_high():
     get_tree().paused = true
     instructions.bbcode_text = """Uh oh! You've connected too many machines to a single network.
 
-Blue data networks have a maximum number of devices which can be connected to each other on a single wire.
-If you connect too many devices, none of them will work.
-
-The network ports in the wall have a limit of 1 device.
 [u]A Router can be used to allow more connections: 4 devices can be connected to its lower port.[/u]
+The network ports in the wall have a limit of 1 device.
 
-Try using a Router to solve the overload."""
+Try using a [u]Router[/u] to solve the overload."""
     popup.visible = true
 
 
