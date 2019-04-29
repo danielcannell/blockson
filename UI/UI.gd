@@ -17,6 +17,7 @@ onready var tooltip_message = get_node("CanvasLayer/TooltipViewer/Message")
 onready var think_rate_label = get_node("CanvasLayer/Panel/VBoxContainer/ThinkRateContainer/ThinkRate")
 var balance = 0.0
 var buttongroup = ButtonGroup.new()
+var think_target = Config.LEVEL_THRESHOLDS[Config.LEVEL_THRESHOLDS.size() - 1]
 
 
 var machine_buttons = {}
@@ -80,6 +81,16 @@ func on_economy_balance_changed(bitcoin_balance, thoughts_per_sec):
     balance_label.set_text(msg)
     think_rate_label.set_text(format_thoughts(thoughts_per_sec))
     shop_list.update_balance(balance)
+    update_progress_bar(thoughts_per_sec)
+    
+    
+func update_progress_bar(thoughts_per_sec):
+    var bar = get_node("CanvasLayer/Panel/VBoxContainer/ProgressBar")
+    var val = 100 * log(thoughts_per_sec) / log(think_target)
+    bar.value = val
+    bar = get_node("CanvasLayer/Panel/VBoxContainer/LevelProgressBar")
+    val = 100 * log(thoughts_per_sec) / log(Config.LEVEL_THRESHOLDS[Config.level])
+    bar.value = val
 
 
 func _on_shopList_item_request(type):

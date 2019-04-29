@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://UI/UI.gd" type="Script" id=1]
 [ext_resource path="res://art/trash_can.png" type="Texture" id=2]
@@ -11,13 +11,32 @@
 [ext_resource path="res://art/DejaVuSansMono-Bold.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://art/DejaVuSansMono.ttf" type="DynamicFontData" id=10]
 
-[sub_resource type="Theme" id=1]
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0862745, 0.505882, 0.0705882, 1 )
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.2, 0.611765, 0.0470588, 1 )
+border_blend = true
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.145098, 0.145098, 0.164706, 1 )
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+
+[sub_resource type="Theme" id=4]
+
+[sub_resource type="DynamicFont" id=5]
 size = 14
 font_data = ExtResource( 9 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=6]
 size = 14
 font_data = ExtResource( 10 )
 
@@ -69,7 +88,6 @@ margin_right = 180.0
 margin_bottom = 22.0
 
 [node name="ThinkRateContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
-editor/display_folded = true
 margin_top = 26.0
 margin_right = 180.0
 margin_bottom = 40.0
@@ -93,16 +111,37 @@ margin_bottom = 14.0
 text = "1Hz"
 align = 2
 
-[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+[node name="LevelProgressBar" type="ProgressBar" parent="CanvasLayer/Panel/VBoxContainer"]
 margin_top = 44.0
 margin_right = 180.0
-margin_bottom = 48.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 0, 8 )
+size_flags_vertical = 1
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+percent_visible = false
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 56.0
+margin_right = 180.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 0, 16 )
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 2 )
+percent_visible = false
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+margin_top = 76.0
+margin_right = 180.0
+margin_bottom = 80.0
 
 [node name="TrashContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
 margin_left = 7.0
-margin_top = 52.0
+margin_top = 84.0
 margin_right = 172.0
-margin_bottom = 128.0
+margin_bottom = 160.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
@@ -117,30 +156,30 @@ text = "Remove Item"
 icon = ExtResource( 2 )
 
 [node name="HSeparator3" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
-margin_top = 132.0
+margin_top = 164.0
 margin_right = 180.0
-margin_bottom = 136.0
+margin_bottom = 168.0
 
 [node name="Shop Header" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
-margin_top = 140.0
+margin_top = 172.0
 margin_right = 180.0
-margin_bottom = 154.0
+margin_bottom = 186.0
 text = "Shop"
 align = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/VBoxContainer"]
-margin_top = 158.0
+margin_top = 190.0
 margin_right = 180.0
 margin_bottom = 576.0
-rect_min_size = Vector2( 180, 400 )
+rect_min_size = Vector2( 180, 380 )
 focus_mode = 1
 size_flags_vertical = 3
-theme = SubResource( 1 )
+theme = SubResource( 4 )
 scroll_horizontal_enabled = false
 
 [node name="ShopList" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/ScrollContainer"]
 margin_right = 180.0
-margin_bottom = 418.0
+margin_bottom = 386.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -162,7 +201,6 @@ margin_bottom = 346.342
 
 [node name="PauseMenu" type="WindowDialog" parent="CanvasLayer"]
 pause_mode = 2
-visible = true
 margin_left = 327.0
 margin_top = 207.0
 margin_right = 610.0
@@ -340,8 +378,8 @@ margin_right = 464.0
 [node name="Message" type="RichTextLabel" parent="CanvasLayer/TooltipViewer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/bold_font = SubResource( 2 )
-custom_fonts/normal_font = SubResource( 3 )
+custom_fonts/bold_font = SubResource( 5 )
+custom_fonts/normal_font = SubResource( 6 )
 bbcode_enabled = true
 
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/TrashContainer/Button" to="." method="on_delete_button_pressed"]
