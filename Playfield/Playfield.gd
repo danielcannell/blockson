@@ -286,7 +286,6 @@ func tick():
     var thoughts_per_sec = 1
     var bitcoin_per_sec = 0
 
-    print("**********")
     for machine in machines:
         machine.checked = true
 
