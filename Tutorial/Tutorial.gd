@@ -73,4 +73,3 @@ You can connect the output of several transformers together to provide more powe
 func handle_popup_ok_pressed():
     get_tree().paused = false
     get_node("Popup").visible = false
-    
