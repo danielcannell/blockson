@@ -15,7 +15,7 @@ var btc_balance = 100000.0
 func _process(delta):
     btc_balance += delta * income_per_sec
     emit_signal("balance_updated", btc_balance, thoughts_per_sec)
-    
+
     if thoughts_per_sec > Config.LEVEL_THRESHOLDS[Config.level]:
         if Config.level == len(Config.LEVEL_THRESHOLDS) - 1:
             emit_signal("player_win")

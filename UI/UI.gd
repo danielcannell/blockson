@@ -17,10 +17,21 @@ var balance = 0.0
 var buttongroup = ButtonGroup.new()
 
 
+var machine_buttons = {}
+
+
 func _ready():
     # Add constant 4-px spacing between vertical items
     get_node("CanvasLayer/Panel/VBoxContainer").add_constant_override("hseparation", 4)
     get_node("CanvasLayer/Panel/VBoxContainer/TrashContainer/Button").set_button_group(buttongroup)
+
+    for wire in Globals.WIRES:
+        shop_list.make_wire_item(wire, buttongroup)
+
+    for tech in Globals.MACHINES:
+        machine_buttons[tech] = shop_list.make_machine_item(tech, buttongroup)
+        machine_buttons[tech].visible = false
+
     emit_signal("tutorial_event", Globals.TutorialEvents.UI_READY)
 
 
@@ -79,17 +90,9 @@ func _on_ShopList_cancel_item_request():
 
 func update_shop_list(tech_state):
     shop_list.release_button()
-    var cur_btns = []
-    for ch in shop_list.get_children():
-        shop_list.remove_child(ch)
-        call_deferred("free", ch)
-
-    for wire in Globals.WIRES:
-        shop_list.make_wire_item(wire, buttongroup)
 
     for tech in tech_state:
-        if tech_state[tech].is_complete():
-            shop_list.make_machine_item(tech, buttongroup)
+        machine_buttons[tech].visible = tech_state[tech].is_complete()
 
     shop_list.update_balance(balance)
 
