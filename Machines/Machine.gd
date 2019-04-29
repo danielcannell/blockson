@@ -120,7 +120,7 @@ func get_status_string():
     var s = get_name() + " - "
 
     if not is_working():
-        s = "NOT WORKING - " + s
+        s += "NOT WORKING - "
 
     for kind in Globals.WIRE_KINDS:
         var need = num_sink_ports(kind)

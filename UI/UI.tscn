@@ -255,7 +255,7 @@ text = "Play Again"
 visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -39.0
+margin_top = -50.0
 margin_right = 365.0
 
 [node name="Message" type="Label" parent="CanvasLayer/TooltipViewer"]

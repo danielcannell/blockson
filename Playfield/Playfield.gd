@@ -31,6 +31,7 @@ var placing_wire = false
 var placing = null
 var deleting = false
 var deleting_wire = false
+var mouse_pos = Vector2(0, 0)
 
 var tick_timer = Timer.new()
 
@@ -105,6 +106,20 @@ func get_tile_coord(viewport_pos):
     return tilemap.world_to_map(local_pos)
 
 
+func update_status_text():
+    var m = tiles.get(get_tile_coord(mouse_pos))
+    var status_text = null
+    if m != null:
+        if m.is_wire():
+            status_text = ""
+            for n in get_nets_from_wire(m):
+                status_text += n.get_status_string() + "\n"
+            status_text = status_text.substr(0, status_text.length() - 1)
+        else:
+            status_text = m.get_status_string()
+    emit_signal("tile_tooltip", status_text)
+
+
 func _unhandled_input(event):
     if event is InputEventMouseButton:
         if event.button_index == BUTTON_LEFT:
@@ -120,17 +135,8 @@ func _unhandled_input(event):
         else:
             update_placing(get_tile_coord(event.position))
 
-        var m = tiles.get(get_tile_coord(event.position))
-        var status_text = null
-        if m != null:
-            if m.is_wire():
-                status_text = ""
-                for n in get_nets_from_wire(m):
-                    status_text += n.get_status_string() + "\n"
-                status_text = status_text.substr(0, status_text.length() - 1)
-            else:
-                status_text = m.get_status_string()
-        emit_signal("tile_tooltip", status_text)
+        mouse_pos = event.position
+        update_status_text()
 
 
 func begin_placing(name):
