@@ -2,12 +2,17 @@ extends "res://Machines/Machine.gd"
 
 
 var tilemap = {
-    Vector2(0, 0): 15,
+    Vector2(0, 0): 38,
+    Vector2(1, 0): 39,
+    Vector2(0, 1): 46,
+    Vector2(1, 1): 47,
 }
 
 func _init():
-    ports[Vector3(0, 0, Globals.Direction.NORTH)] = Globals.Port.new(self, 0, 0, -2000, 0, 0, 0)
-    ports[Vector3(0, 0, Globals.Direction.SOUTH)] = Globals.Port.new(self, 2000, 0, 0, 0, 0, 0)
+    ports[Vector3(0, 0, Globals.Direction.WEST)] = Globals.Port.new(self, 0, 0, -2000, 0, 0, 0)
+    ports[Vector3(0, 1, Globals.Direction.WEST)] = Globals.Port.new(self, 0, 0, -2000, 0, 0, 0)
+    ports[Vector3(1, 0, Globals.Direction.EAST)] = Globals.Port.new(self, 2000, 0, 0, 0, 0, 0)
+    ports[Vector3(1, 1, Globals.Direction.EAST)] = Globals.Port.new(self, 2000, 0, 0, 0, 0, 0)
 
 
 func size():
