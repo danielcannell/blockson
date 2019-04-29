@@ -118,7 +118,7 @@ align = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel/VBoxContainer"]
 margin_top = 158.0
 margin_right = 180.0
-margin_bottom = 558.0
+margin_bottom = 576.0
 rect_min_size = Vector2( 180, 400 )
 focus_mode = 1
 size_flags_vertical = 3
@@ -127,24 +127,18 @@ scroll_horizontal_enabled = false
 
 [node name="ShopList" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/ScrollContainer"]
 margin_right = 180.0
-margin_bottom = 400.0
+margin_bottom = 418.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
-margin_top = 562.0
-margin_right = 180.0
-margin_bottom = 582.0
-toggle_mode = true
-text = "Tech Tree"
-
-[node name="Footer" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
-margin_top = 586.0
+margin_top = 580.0
 margin_right = 180.0
 margin_bottom = 600.0
-text = "Footer"
+toggle_mode = true
+text = "Tech Tree"
 
 [node name="TestButton" type="Button" parent="CanvasLayer/Panel"]
 visible = false
