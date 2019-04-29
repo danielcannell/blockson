@@ -21,10 +21,6 @@ var pos = Vector2()
 var ports = {}
 
 
-# Earning rates
-var bitcoin_per_sec = 0
-var thoughts_per_sec = 0
-
 var temperature = 10;
 # termal energy output in J per second
 var thermal_output = 100;
@@ -39,10 +35,6 @@ func is_wire():
 # The size of the machine in tiles.
 func size():
     Globals.throw("ERROR: size() not implemented")
-
-
-func cost():
-    Globals.throw("ERROR: cost() not implemented")
 
 
 func tile(pos, n, s, e, w):

@@ -16,10 +16,6 @@ func size():
     return Vector2(1, 1)
 
 
-func cost():
-    return 5
-
-
 func tile(pos, n, s, e, w):
     return tilemap[Vector2(pos.x, pos.y)]
 

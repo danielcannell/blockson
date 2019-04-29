@@ -5,22 +5,57 @@ const MIN_ZOOM = 0.1
 const ZOOM_SPEED = 0.1
 const DRAG_DEADZONE = 10
 
+const INITIAL_BITCOIN = 90
+
 
 const LEVEL_SIZES = {
     0: Vector2(8, 8),
     1: Vector2(12, 12),
-    2: Vector2(16, 6),
+    2: Vector2(40, 6),
     3: Vector2(20, 30),
-    4: Vector2(32, 32)
+    4: Vector2(50, 50)
 }
 
 
 const LEVEL_THRESHOLDS = {
     0: 1e3,
     1: 1e6,
-    2: 20e6,
+    2: 2e6,
     3: 100e6,
-    4: 1e7
+    4: 1e9,
+}
+
+
+const MACHINE_COST = {
+    "Bitcoin Miner": 10,
+    "Bitcoin Miner 2": 1000,
+    "Bitcoin Miner 3": 1000000,
+
+    "Ethereum Miner": 100,
+    "Ethereum Miner 2": 10000,
+    "Ethereum Miner 3": 10000000,
+
+    "Router": 1,
+    "Router 2": 100000000,
+    "Router 3": 100000000,
+
+    "Transformer": 1,
+    "Transformer 2": 100000000,
+    "Transformer 3": 100000000,
+}
+
+
+const MACHINE_BITCOIN_PER_SEC = {
+    "Bitcoin Miner": 10,
+    "Bitcoin Miner 2": 1000,
+    "Bitcoin Miner 3": 100000,
+}
+
+
+const MACHINE_THOUGHTS_PER_SEC = {
+    "Ethereum Miner": 1000,
+    "Ethereum Miner 2": 400000,
+    "Ethereum Miner 3": 50000000,
 }
 
 

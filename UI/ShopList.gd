@@ -10,7 +10,7 @@ signal item_request
 func make_machine_item(name, buttongroup):
     var m = Globals.MACHINES[name]
     var btn = ShopButton.instance()
-    var cost = m.new().cost()
+    var cost = Config.MACHINE_COST[name]
     btn.iname = name
     btn.cost = cost
     btn.connect("pressed", self, "item_request", [name])

@@ -46,19 +46,19 @@ const MACHINES = {
 
 var TECH_SPECS = {
     "Bitcoin Miner": TechSpec.new(0, TechFlavour.BITCOIN, 0),
-    "Bitcoin Miner 2": TechSpec.new(1, TechFlavour.BITCOIN, 100),
-    "Bitcoin Miner 3": TechSpec.new(2, TechFlavour.BITCOIN, 1000),
+    "Bitcoin Miner 2": TechSpec.new(1, TechFlavour.BITCOIN, 100000),
+    "Bitcoin Miner 3": TechSpec.new(2, TechFlavour.BITCOIN, 40e6),
 
     "Ethereum Miner": TechSpec.new(0, TechFlavour.ETHEREUM, 0),
-    "Ethereum Miner 2": TechSpec.new(1, TechFlavour.ETHEREUM, 100),
-    "Ethereum Miner 3": TechSpec.new(2, TechFlavour.ETHEREUM, 1000),
+    "Ethereum Miner 2": TechSpec.new(1, TechFlavour.ETHEREUM, 100000),
+    "Ethereum Miner 3": TechSpec.new(2, TechFlavour.ETHEREUM, 40e6),
 
     "Router": TechSpec.new(0, TechFlavour.NETWORK, 0),
-    "Router 2": TechSpec.new(1, TechFlavour.NETWORK, 100),
+    "Router 2": TechSpec.new(1, TechFlavour.NETWORK, 100000),
     "Router 3": TechSpec.new(2, TechFlavour.NETWORK, 1000),
 
     "Transformer": TechSpec.new(0, TechFlavour.POWER, 0),
-    "Transformer 2": TechSpec.new(1, TechFlavour.POWER, 100),
+    "Transformer 2": TechSpec.new(1, TechFlavour.POWER, 100000),
     "Transformer 3": TechSpec.new(2, TechFlavour.POWER, 1000),
 }
 

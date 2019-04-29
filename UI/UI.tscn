@@ -202,14 +202,14 @@ autowrap = true
 [node name="Spacer" type="Control" parent="CanvasLayer/LevelCompleteDialog/VBoxContainer"]
 margin_top = 52.0
 margin_right = 179.0
-margin_bottom = 63.0
+margin_bottom = 62.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="CanvasLayer/LevelCompleteDialog/VBoxContainer"]
-margin_top = 67.0
+margin_top = 66.0
 margin_right = 179.0
-margin_bottom = 87.0
+margin_bottom = 86.0
 text = "Next Level..."
 
 [node name="GameCompleteDialog" type="PopupDialog" parent="CanvasLayer"]

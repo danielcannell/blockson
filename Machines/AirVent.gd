@@ -14,10 +14,6 @@ func size():
     return Vector2(1, 1)
 
 
-func cost():
-    return -1
-
-
 func tile(pos, n, s, e, w):
     return 0
 
