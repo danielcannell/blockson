@@ -252,6 +252,18 @@ margin_right = 179.0
 margin_bottom = 170.0
 text = "Play Again"
 
+[node name="TooltipViewer" type="Panel" parent="CanvasLayer"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -39.0
+margin_right = 365.0
+
+[node name="Message" type="Label" parent="CanvasLayer/TooltipViewer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+autowrap = true
+
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/TrashContainer/Button" to="." method="on_delete_button_pressed"]
 [connection signal="item_request" from="CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList" to="." method="_on_shopList_item_request"]
 [connection signal="toggled" from="CanvasLayer/Panel/VBoxContainer/Button" to="CanvasLayer/TechTreePanel" method="on_button_toggled"]

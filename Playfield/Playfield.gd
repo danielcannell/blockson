@@ -12,6 +12,7 @@ signal end_placing
 signal mining_result
 signal tutorial_event
 signal delete_completed
+signal tile_tooltip
 
 onready var tilemap = find_node("TileMap")
 onready var cabletray_tilemap = find_node("CableTrayTileMap")

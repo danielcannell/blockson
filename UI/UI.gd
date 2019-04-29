@@ -12,6 +12,8 @@ signal ui_tech_request
 onready var shop_list = get_node("CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList")
 onready var tech_tree = get_node("CanvasLayer/TechTreePanel")
 onready var balance_label = get_node("CanvasLayer/Panel/VBoxContainer/BalanceContainer/Balance")
+onready var tooltip = get_node("CanvasLayer/TooltipViewer")
+onready var tooltip_message = get_node("CanvasLayer/TooltipViewer/Message")
 onready var think_rate_label = get_node("CanvasLayer/Panel/VBoxContainer/ThinkRateContainer/ThinkRate")
 var balance = 0.0
 var buttongroup = ButtonGroup.new()
@@ -50,7 +52,12 @@ func on_playfield_end_placing(placed):
         if shop_list.selected().iname == "Ethereum Miner":
             emit_signal("tutorial_event", Globals.TutorialEvents.ETHEREUM_MINER_PLACED)
     shop_list.release_button()
-
+    
+    
+func on_playfield_tooltip(message):
+    tooltip.visible = message != null
+    tooltip_message.text = message
+    
 
 func format_thoughts(thoughts_per_sec):
     if thoughts_per_sec > 1e16:
