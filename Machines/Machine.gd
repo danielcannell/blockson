@@ -114,3 +114,15 @@ func is_working():
         if not working(kind):
             return false
     return true
+
+
+func to_string():
+    return "Machine{ce=%d/%d, cn=%d/%d, ct=%d/%d, w=%s}" % [
+        connected[Globals.Wire.ELECTRIC],
+        num_sink_ports(Globals.Wire.ELECTRIC),
+        connected[Globals.Wire.NETWORK],
+        num_sink_ports(Globals.Wire.NETWORK),
+        connected[Globals.Wire.THREE_PHASE],
+        num_sink_ports(Globals.Wire.THREE_PHASE),
+        is_working()
+    ]

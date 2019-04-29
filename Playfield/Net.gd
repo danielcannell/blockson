@@ -2,6 +2,7 @@ extends Node
 
 var kind = -1
 var ports = []
+var wires = []
 var supply = 0
 
 func _init(kind):
@@ -37,4 +38,4 @@ func max_fanout():
 
 
 func to_string():
-    return "Net{kind=%d, ports=%s, supply=%d}" % [kind, str(ports), supply]
+    return "Net{kind=%d, ports=%s, supply=%d, #wires=%d}" % [kind, str(ports), supply, wires.size()]
