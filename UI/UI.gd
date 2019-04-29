@@ -44,14 +44,16 @@ func _process(delta):
 
 func on_playfield_end_placing(placed):
     if placed:
-        var cost = shop_list.selected().cost
-        emit_signal("spend", cost)
-        if shop_list.selected().iname == "Transformer":
-            emit_signal("tutorial_event", Globals.TutorialEvents.TRANSFORMER_PLACED)
-        if shop_list.selected().iname == "Bitcoin Miner":
-            emit_signal("tutorial_event", Globals.TutorialEvents.BITCOIN_MINER_PLACED)
-        if shop_list.selected().iname == "Ethereum Miner":
-            emit_signal("tutorial_event", Globals.TutorialEvents.ETHEREUM_MINER_PLACED)
+        # Sometimes something goes wrong and this is null
+        if shop_list.selected() != null:
+            var cost = shop_list.selected().cost
+            emit_signal("spend", cost)
+            if shop_list.selected().iname == "Transformer":
+                emit_signal("tutorial_event", Globals.TutorialEvents.TRANSFORMER_PLACED)
+            if shop_list.selected().iname == "Bitcoin Miner":
+                emit_signal("tutorial_event", Globals.TutorialEvents.BITCOIN_MINER_PLACED)
+            if shop_list.selected().iname == "Ethereum Miner":
+                emit_signal("tutorial_event", Globals.TutorialEvents.ETHEREUM_MINER_PLACED)
     shop_list.release_button()
 
 
