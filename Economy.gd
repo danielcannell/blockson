@@ -19,6 +19,9 @@ func _process(delta):
 
     if income_per_sec > 0:
         emit_signal("tutorial_event", Globals.TutorialEvents.EARNING_MONEY)
+        
+    if thoughts_per_sec > 1.0:
+        emit_signal("tutorial_event", Globals.TutorialEvents.EARNING_THOUGHTS)
     
     if thoughts_per_sec > Config.LEVEL_THRESHOLDS[Config.level]:
         if Config.level == len(Config.LEVEL_THRESHOLDS) - 1:

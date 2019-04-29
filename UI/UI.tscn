@@ -149,7 +149,6 @@ margin_bottom = 346.342
 
 [node name="PauseMenu" type="WindowDialog" parent="CanvasLayer"]
 pause_mode = 2
-visible = true
 margin_left = 327.0
 margin_top = 207.0
 margin_right = 610.0

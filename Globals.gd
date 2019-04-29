@@ -77,6 +77,8 @@ enum TutorialEvents {
     BITCOIN_MINER_PLACED,
     ETHEREUM_MINER_PLACED
     EARNING_MONEY,
+    TRANFORMER_POWERED,
+    EARNING_THOUGHTS,
 }
 
 class Port:

@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Tutorial/Tutorial.gd" type="Script" id=1]
+[ext_resource path="res://art/DejaVuSansMono-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://art/DejaVuSansMono.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
 
 [node name="Tutorial" type="CanvasLayer"]
 pause_mode = 2
@@ -35,7 +43,11 @@ margin_right = 540.0
 margin_bottom = 224.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "This is a tutorial yo!!!!!"
+custom_fonts/bold_font = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "This text is [b]Bold[/b]"
+text = "This text is Bold"
 
 [node name="Button" type="Button" parent="Popup/Panel/VBoxContainer"]
 margin_top = 228.0
