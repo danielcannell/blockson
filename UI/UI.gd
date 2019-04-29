@@ -33,12 +33,22 @@ func _ready():
         machine_buttons[tech].visible = false
 
     emit_signal("tutorial_event", Globals.TutorialEvents.UI_READY)
+    
+
+func _process(delta):
+    get_node("CanvasLayer/PauseMenu/VBoxContainer/CheckBox").pressed = Config.tutorial_active
 
 
 func on_playfield_end_placing(placed):
     if placed:
         var cost = shop_list.selected().cost
         emit_signal("spend", cost)
+        if shop_list.selected().iname == "Transformer":
+            emit_signal("tutorial_event", Globals.TutorialEvents.TRANSFORMER_PLACED)
+        if shop_list.selected().iname == "Bitcoin Miner":
+            emit_signal("tutorial_event", Globals.TutorialEvents.BITCOIN_MINER_PLACED)
+        if shop_list.selected().iname == "Ethereum Miner":
+            emit_signal("tutorial_event", Globals.TutorialEvents.ETHEREUM_MINER_PLACED)
     shop_list.release_button()
 
 
@@ -122,3 +132,7 @@ func on_economy_player_win():
 func on_restart_requested():
     Config.level = -1
     Config.next_level()
+
+
+func enable_tutorial(button_pressed):
+    Config.tutorial_active = button_pressed

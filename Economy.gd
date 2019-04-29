@@ -4,6 +4,7 @@ extends Node
 signal balance_updated
 signal level_completed
 signal player_win
+signal tutorial_event
 
 
 var income_per_sec = 0.0
@@ -16,6 +17,9 @@ func _process(delta):
     btc_balance += delta * income_per_sec
     emit_signal("balance_updated", btc_balance, thoughts_per_sec)
 
+    if income_per_sec > 0:
+        emit_signal("tutorial_event", Globals.TutorialEvents.EARNING_MONEY)
+    
     if thoughts_per_sec > Config.LEVEL_THRESHOLDS[Config.level]:
         if Config.level == len(Config.LEVEL_THRESHOLDS) - 1:
             emit_signal("player_win")

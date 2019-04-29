@@ -26,7 +26,7 @@ const LEVEL_THRESHOLDS = {
 
 # If active is false, then the tutorial will not run.
 # If active is true, then the tutorial will run. Simples!
-var tutorial_active = false
+var tutorial_active = true
 
 var MAP_WIDTH = 8
 var MAP_HEIGHT = 8
