@@ -16,6 +16,8 @@ var MAP_HEIGHT = 8
 # name -> TechState
 var tech_states = {}
 
+var tutorial_occurred = []
+
 
 func load_with_map(width, height):
     MAP_WIDTH = width
