@@ -20,3 +20,7 @@ func cost():
 
 func tile(pos, n, s, e, w):
     return 0
+
+
+func get_name():
+    return "Air Vent"

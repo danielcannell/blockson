@@ -35,7 +35,7 @@ func _ready():
         machine_buttons[tech].visible = false
 
     emit_signal("tutorial_event", Globals.TutorialEvents.UI_READY)
-    
+
 
 func _process(delta):
     get_node("CanvasLayer/PauseMenu/VBoxContainer/CheckBox").pressed = Config.tutorial_active
@@ -52,12 +52,13 @@ func on_playfield_end_placing(placed):
         if shop_list.selected().iname == "Ethereum Miner":
             emit_signal("tutorial_event", Globals.TutorialEvents.ETHEREUM_MINER_PLACED)
     shop_list.release_button()
-    
-    
+
+
 func on_playfield_tooltip(message):
+    if message != null:
+        tooltip_message.text = message
     tooltip.visible = message != null
-    tooltip_message.text = message
-    
+
 
 func format_thoughts(thoughts_per_sec):
     if thoughts_per_sec > 1e16:

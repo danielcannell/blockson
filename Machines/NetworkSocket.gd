@@ -19,3 +19,7 @@ func cost():
 
 func tile(pos, n, s, e, w):
     return 2
+
+
+func get_name():
+    return "Network Socket"

@@ -23,3 +23,7 @@ func cost():
 
 func tile(pos, n, s, e, w):
     return tilemap[Vector2(pos.x, pos.y)]
+
+
+func get_name():
+    return "Transformer"
