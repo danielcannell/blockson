@@ -334,7 +334,7 @@ text = "Play Again"
 [node name="TooltipViewer" type="Panel" parent="CanvasLayer"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -24.0
+margin_top = -58.0
 margin_right = 464.0
 
 [node name="Message" type="RichTextLabel" parent="CanvasLayer/TooltipViewer"]

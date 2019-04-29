@@ -55,5 +55,6 @@ format = 1
 script = ExtResource( 8 )
 
 [node name="HeatSim" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 9 )
 
