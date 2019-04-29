@@ -472,15 +472,16 @@ func finish_deleting(clicked_pos):
     if machine.is_wire():
         wire_delete(clicked_pos)
     else:
-        remove_child(machine.status_effect)
-        machines.erase(machine)
-        call_deferred("free", machine.status_effect)
-        call_deferred("free", machine)
-        var pos = machine.pos
-        var sz = machine.size()
-        for x in range(sz[0]):
-            for y in range(sz[1]):
-                tiles.erase(Vector2(pos[0] + x, pos[1] + y))
+        if not machine.is_fixed():
+            remove_child(machine.status_effect)
+            machines.erase(machine)
+            var pos = machine.pos
+            var sz = machine.size()
+            for x in range(sz[0]):
+                for y in range(sz[1]):
+                    tiles.erase(Vector2(pos[0] + x, pos[1] + y))
+            machine.status_effect.free()
+            machine.free()
 
         complete_deleting()
         recompute_tilemaps()

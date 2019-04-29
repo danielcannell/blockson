@@ -20,3 +20,7 @@ func tile(pos, n, s, e, w):
 
 func get_name():
     return "Air Vent"
+
+
+func is_fixed():
+    return true

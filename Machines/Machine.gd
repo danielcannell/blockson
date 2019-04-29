@@ -32,6 +32,10 @@ func is_wire():
     return false
 
 
+func is_fixed():
+    return false
+
+
 # The size of the machine in tiles.
 func size():
     Globals.throw("ERROR: size() not implemented")

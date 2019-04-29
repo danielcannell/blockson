@@ -19,3 +19,7 @@ func tile(pos, n, s, e, w):
 
 func get_name():
     return "Three-phase Socket"
+
+
+func is_fixed():
+    return true
