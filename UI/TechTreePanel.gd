@@ -48,5 +48,5 @@ func on_tech_update(tech_state):
 
         btn_handles[tech].get_node("Button").disabled = not state.is_buildable()
         btn_handles[tech].get_node("Padlock").visible = not state.is_complete() and not state.is_buildable()
-        
+
 
