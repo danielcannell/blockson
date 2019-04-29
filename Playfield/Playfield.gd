@@ -304,6 +304,9 @@ func tick():
         machine.checked = true
 
         if machine.is_working():
+            print(machine.get_name())
+            if machine.get_name() == "Transformer":
+                emit_signal("tutorial_event", Globals.TutorialEvents.TRANFORMER_POWERED)
             thoughts_per_sec += machine.thoughts_per_sec
             bitcoin_per_sec += machine.bitcoin_per_sec
 

@@ -12,6 +12,7 @@ var handlers = {
     Globals.TutorialEvents.ETHEREUM_MINER_PLACED: "handle_ethereum_miner_placed",
     Globals.TutorialEvents.EARNING_MONEY: "handle_earning_money",
     Globals.TutorialEvents.EARNING_THOUGHTS: "handle_thinking_faster",
+    Globals.TutorialEvents.TRANFORMER_POWERED: "handle_transformer_powered",
 }
 var popup_pending = null
 
