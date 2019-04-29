@@ -31,6 +31,7 @@ func _process(delta):
         if Config.level == len(Config.LEVEL_THRESHOLDS) - 1:
             emit_signal("player_win")
             return
+        Config.base_thoughts_per_second = thoughts_per_sec
         emit_signal("level_completed")
 
 

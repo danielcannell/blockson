@@ -303,7 +303,8 @@ func on_ui_request_placement(name):
 func tick():
     update_machines_working()
 
-    var thoughts_per_sec = 1
+
+    var thoughts_per_sec = Config.base_thoughts_per_second
     var bitcoin_per_sec = 0
 
     for machine in machines:

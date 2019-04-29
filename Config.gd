@@ -68,6 +68,8 @@ var MAP_HEIGHT = 8
 
 var level = 0
 
+var base_thoughts_per_second = 1
+
 
 # name -> TechState
 var tech_states = {}
