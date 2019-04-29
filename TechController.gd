@@ -5,9 +5,6 @@ signal tech_update
 signal tech_shop_updated
 
 
-# name -> TechState
-var tech_states = {}
-
 var thoughts_per_sec = 0
 var bitcoin_per_sec = 0
 
@@ -15,21 +12,23 @@ var bitcoin_per_sec = 0
 func _init():
     # Initialise the tech states
     for name in Globals.MACHINES:
-        if Globals.TECH_SPECS[name].thoughts == 0:
-            tech_states[name] = Globals.TechState.new(1.0, true)
-        else:
-            tech_states[name] = Globals.TechState.new(0.0, false)
+        if not name in Config.tech_states:
+            if Globals.TECH_SPECS[name].thoughts == 0:
+                Config.tech_states[name] = Globals.TechState.new(1.0, true)
+            else:
+                Config.tech_states[name] = Globals.TechState.new(0.0, false)
 
     complete_tech()
 
 
 func _ready():
-    emit_signal("tech_update", tech_states)
-    emit_signal("tech_shop_updated", tech_states)
+    emit_signal("tech_update", Config.tech_states)
+    emit_signal("tech_shop_updated", Config.tech_states)
 
 
 func _process(delta):
     var update = []
+    var tech_states = Config.tech_states
 
     for name in tech_states:
         var ts = tech_states[name]
@@ -61,6 +60,7 @@ func _process(delta):
 
 func complete_tech():
     var levels = {}
+    var tech_states = Config.tech_states
 
     for flavour in Globals.TECH_FLAVOURS:
         levels[flavour] = 0
@@ -81,7 +81,7 @@ func complete_tech():
 
 
 func on_ui_tech_request(name):
-    var state = tech_states[name]
+    var state = Config.tech_states[name]
 
     if state.is_buildable():
         # Kick it off

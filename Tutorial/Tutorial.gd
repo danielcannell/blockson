@@ -1,8 +1,5 @@
 extends CanvasLayer
 
-# If active is false, then the tutorial will not run.
-# If active is true, then the tutorial will run. Simples!
-var active = false
 var occured = []
 onready var popup = get_node("Popup")
 onready var instructions = get_node("Popup/Panel/VBoxContainer/RichTextLabel")
@@ -22,7 +19,7 @@ func handle_tutorial_event(ev):
 
     occured.append(ev)
 
-    if !active:
+    if !Config.tutorial_active:
         return
 
     for h in handlers:
@@ -51,3 +48,4 @@ func handle_playfield_ready():
 func handle_popup_ok_pressed():
     get_tree().paused = false
     get_node("Popup").visible = false
+    

@@ -176,7 +176,6 @@ margin_bottom = 20.0
 text = "Resume"
 
 [node name="TechTreePanel" parent="CanvasLayer" instance=ExtResource( 5 )]
-visible = false
 
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/TrashContainer/Button" to="." method="on_delete_button_pressed"]
 [connection signal="item_request" from="CanvasLayer/Panel/VBoxContainer/ScrollContainer/ShopList" to="." method="_on_shopList_item_request"]
