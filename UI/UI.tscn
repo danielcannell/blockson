@@ -178,7 +178,7 @@ text = "Enable Tutorial"
 
 [node name="TechTreePanel" parent="CanvasLayer" instance=ExtResource( 5 )]
 
-[node name="LevelCompleteDialog" type="Popup" parent="CanvasLayer"]
+[node name="LevelCompleteDialog" type="PopupDialog" parent="CanvasLayer"]
 pause_mode = 2
 margin_left = 390.083
 margin_top = 221.71
