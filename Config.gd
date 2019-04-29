@@ -36,12 +36,10 @@ const MACHINE_COST = {
     "Ethereum Miner 3": 10000000,
 
     "Router": 1,
-    "Router 2": 100000000,
-    "Router 3": 100000000,
 
-    "Transformer": 1,
-    "Transformer 2": 100000000,
-    "Transformer 3": 100000000,
+    "Transformer": 5,
+    "Transformer 2": 500,
+    "Transformer 3": 500000,
 }
 
 
